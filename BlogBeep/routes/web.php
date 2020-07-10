@@ -13,10 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PageController@welcome')->name('welcome');
 
-Auth::routes();
+Route::resource('/admin/productos', 'ProductosController');
+Route::resource('/admin/categorias', 'CategoriasController');
+Route::resource('/admin/compras', 'ComprasController');
+Route::resource('/admin/usuarios', 'UsuariosController');
+
+Route::get('/usuario/admin?', 'UsuariosController@getTipo');
+Route::get('/usuario/logged', 'UsuariosController@getUserlogged');
+
+Auth::routes(['verify'=> true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
