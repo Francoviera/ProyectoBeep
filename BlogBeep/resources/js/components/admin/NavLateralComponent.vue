@@ -5,7 +5,7 @@
         </div>
         <figure class="full-width navLateral-body-tittle-menu">
             <div>
-                <img v-bind:src="'img/avatar-male.png'">
+                <img v-bind:src="'../img/avatar-male.png'">
             </div>
             <figcaption>
                 <span>
@@ -49,7 +49,7 @@
                             </a>
                         </li>
                         <li class="full-width">
-                            <a class="full-width">
+                            <a @click="pagProveedores()" class="full-width">
                                 <div class="navLateral-body-cl">
                                     <i class="zmdi zmdi-truck"></i>
                                 </div>
@@ -69,7 +69,7 @@
                             </a>
                         </li>
                         <li class="full-width">
-                            <a class="full-width">
+                            <a @click="pagCategorias()" class="full-width">
                                 <div class="navLateral-body-cl">
                                     <i class="zmdi zmdi-label"></i>
                                 </div>
@@ -82,7 +82,7 @@
                 </li>
                 <li class="full-width divider-menu-h"></li>
                 <li class="full-width">
-                    <a class="full-width btn-subMenu">
+                    <a @click="pagUsuarios()" class="full-width btn-subMenu">
                         <div class="navLateral-body-cl">
                             <i class="zmdi zmdi-face"></i>
                         </div>
@@ -116,7 +116,7 @@
                 </li>
                 <li class="full-width divider-menu-h"></li>
                 <li class="full-width">
-                    <a class="full-width" @click="getproductos()">
+                    <a class="full-width" @click="pagProductos()">
                         <div class="navLateral-body-cl">
                             <i class="zmdi zmdi-washing-machine"></i>
                         </div>
@@ -128,7 +128,7 @@
                 <li class="full-width divider-menu-h"></li>
                 <li class="full-width">
                     <a class="full-width">
-                        <div class="navLateral-body-cl">
+                        <div @click="pagVentas()" class="navLateral-body-cl">
                             <i class="zmdi zmdi-shopping-cart"></i>
                         </div>
                         <div class="navLateral-body-cr">
@@ -190,17 +190,27 @@
     export default {
         props:['user'],
         data: function(){
-            return{
-                
-               
+            return{    
             }
         },
         created(){
         },
         methods:{
-            getproductos(){
-                this.$emit('getProductos');
-            }
+            pagProductos(){
+                this.$emit('pagProductos');
+            },
+            pagCategorias(){
+                this.$emit('pagCategorias');
+            },
+            pagUsuarios(){
+                this.$emit('pagUsuarios');
+            },
+            pagVentas(){
+                this.$emit('pagVentas');
+            },
+            pagProveedores(){
+                this.$emit('pagProveedores');
+            },
         }
     }
 </script>

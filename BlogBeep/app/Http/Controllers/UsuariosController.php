@@ -32,6 +32,19 @@ class UsuariosController extends Controller
             return false;
         }
     }
+    public function cambiarTipo(Request $request, $id){
+        $usuario= App\User::findOrFail($id);
+
+        if($request->type === 'admin'){
+            $usuario->type= 'user';
+        }else{
+            $usuario->type= 'admin';
+        }
+
+        $usuario->save();
+
+        return $usuario;
+    }
     public function getUserlogged(Request $request){
         if($request->wantsJson() && auth()->check()){
             return auth()->user();

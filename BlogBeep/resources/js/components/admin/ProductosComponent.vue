@@ -2,7 +2,7 @@
     <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
         <div class="mdl-tabs__tab-bar">
             <a href="#tabNewProduct" class="mdl-tabs__tab is-active">Nuevo</a>
-            <a href="#tabListProducts" class="mdl-tabs__tab" @click="getCategorias()">Lista</a>
+            <a href="#tabListProducts" class="mdl-tabs__tab" @click="getCategorias(), getProductos()">Lista</a>
         </div>
         <div class="mdl-tabs__panel is-active divAgregar" id="tabNewProduct">
             <div class="mdl-grid">
@@ -90,7 +90,7 @@
                 </div>
             </div>
         </div>
-        <div class="mdl-tabs__panel is-active divEditar" id="tabNewProduct">
+        <div class="mdl-tabs__panel divEditar" id="tabNewProduct">
             <div class="mdl-grid">
                 <div class="mdl-cell mdl-cell--12-col">
                     <div class="full-width panel mdl-shadow--2dp">
@@ -199,19 +199,18 @@
                     <div class="full-width text-center" style="padding: 30px 0;">
                         <div class="mdl-card mdl-shadow--2dp full-width product-card" v-for="(producto, index) in productos" :key="index">
                             <div class="mdl-card__title">
-                                <img v-bind:src="'img/fontLogin.jpg'" alt="product" class="img-responsive">
+                                <img  alt="product" class="img-responsive">
                             </div>
                             <div class="mdl-card__supporting-text">
-                                <small>{{producto.cantidad}}</small><br>
-                                <small>{{producto.precio}}</small>
+                                <small>Cantidad:</small><small v-if="producto.cantidad <= 5" class="text-danger">{{producto.cantidad}}</small><small v-else class="text-success">{{producto.cantidad}}</small><br>
+                                <small>Precio:</small><small>{{producto.precio}}</small>
                             </div>
                             <div class="mdl-card__actions mdl-card--border">
                                 {{producto.nombre}}
                                 <button class="btn btn-warning btn-sm" @click="formEdit(producto)">Editar</button>
                                 <button class="btn btn-danger btn-sm" @click="eliminar(producto, index)">Eliminar</button>								
                             </div>
-                        </div>
-                        
+                        </div>   
                     </div>
                 </div>
             </div>
@@ -225,6 +224,7 @@
             return{
                modoEditar:false, 
                producto:{
+                    id: '',
                     nombre: '',
                     precio: '',
                     cantidad: '',
@@ -273,26 +273,21 @@
                     nombre: this.producto.nombre,
                     precio: this.producto.precio,
                     cantidad: this.producto.cantidad,
-                    id_categoria: this.producto.id_categoria
+                    id_categoria: this.producto.id_categoria.categoria.id
                 }
 
                 axios.put(`/admin/productos/${this.producto.id}`, params)
                 .then(res=>{
-                    this.modoEditar = false;
-                    const index = this.productos.findIndex(busqueda => busqueda.id === res.data.id);
-                    this.productos[index].nombre = res.data.nombre;
-                    this.productos[index].precio = res.data.precio;
-                    this.productos[index].cantidad = res.data.cantidad;
-                    this.productos[index].id_categoria = res.data.id_categoria;
+                    alert('Producto Cargado');
 
                     this.producto.nombre= '';
                     this.producto.precio= '';
                     this.producto.cantidad= '';
-                    this.producto.id_categoria= '';
+                    this.producto.id_categoria= '';                  
                 });
-
+                this.$emit('getProductos',);
                 divProductos.classList.toggle("is-active");
-                divEditar.classList.toggle("is-active"); 
+                divEditar.classList.toggle("is-active");                
             },
             eliminar(producto, index){
                 console.log('llego');
@@ -308,7 +303,7 @@
 
                 divProductos.classList.toggle("is-active");
                 divEditar.classList.toggle("is-active"); 
-
+                
                 this.producto.id= producto.id;
                 this.producto.nombre= producto.nombre;
                 this.producto.precio= producto.precio;

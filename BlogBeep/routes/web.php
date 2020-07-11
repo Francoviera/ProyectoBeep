@@ -22,6 +22,7 @@ Route::resource('/admin/usuarios', 'UsuariosController');
 
 Route::get('/usuario/admin?', 'UsuariosController@getTipo');
 Route::get('/usuario/logged', 'UsuariosController@getUserlogged');
+Route::put('/usuario/cambiarTipo/{id?}', 'UsuariosController@cambiarTipo');
 
 Auth::routes(['verify'=> true]);
 

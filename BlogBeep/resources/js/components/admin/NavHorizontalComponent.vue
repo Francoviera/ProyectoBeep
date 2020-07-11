@@ -13,10 +13,10 @@
                         <i class="zmdi zmdi-power"></i>
                         <div class="mdl-tooltip" for="btn-exit">LogOut</div>
                     </li>
-                    <li class="text-condensedLight noLink" ><small>User Name</small></li>
+                    <li class="text-condensedLight noLink" ><small>{{user.name}}</small></li>
                     <li class="noLink">
                         <figure>
-                            <img v-bind:src="'img/avatar-male.png'">
+                            <img v-bind:src="'../img/avatar-male.png'">
                         </figure>
                     </li>
                 </ul>
@@ -24,3 +24,8 @@
         </div>
     </div>
 </template>
+<script>
+    export default {
+        props:['user'],
+    }
+</script>

@@ -89,7 +89,7 @@ class ProductosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {      
         $producto= App\Producto::findOrFail($id);
         $producto->nombre= $request->nombre;
         $producto->precio= $request->precio;

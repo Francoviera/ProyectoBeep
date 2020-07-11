@@ -4,7 +4,13 @@
         <section class="full-width navLateral">
             <div class="full-width navLateral-bg btn-menu"></div>
             <div class="full-width navLateral-body">
-                <navlateral-component :user='user' @getProductos="getProductos"> 
+                <navlateral-component 
+                :user='user'  
+                @pagProductos="pagProductos" 
+                @pagCategorias="pagCategorias"
+                @pagVentas="pagVentas"
+                @pagUsuarios="pagUsuarios"
+                @pagProveedores="pagProveedores"> 
                 </navlateral-component>
             </div>
         </section>
@@ -19,11 +25,26 @@
             @getProductos="getProductos"
             @getCategorias="getCategorias"
             @getCategoria="getCategoria" 
-            v-if="url == '/admin/productos'  || url == 'productos'"> 
+             v-show="url == '/admin/productos'  || url == 'productos'"> 
             </productos-component>
 
-            <categorias-component v-if="url == '/admin/categorias' || url == 'categorias'"> 
+            <categorias-component 
+            :categorias='categorias' 
+            @getCategorias="getCategorias"
+            v-show="url == '/admin/categorias' || url == 'categorias'"> 
             </categorias-component>
+
+            <ventas-component  v-show="url == '/admin/ventas' || url == 'ventas'"> 
+            </ventas-component>
+
+            <usuarios-component 
+            :usuarios='usuarios'
+            @getUsuarios="getUsuarios"
+            v-show="url == '/admin/usuarios' || url == 'usuarios'">       
+            </usuarios-component>
+
+            <proveedores-component v-show="url == '/admin/proveedores' || url == 'proveedores'">       
+            </proveedores-component>
 
         </section>
     </div>
@@ -52,6 +73,7 @@
                     cantidad: '',
                     id_categoria: ''
                 },
+                usuarios: [],
                 user:{     
                 },
                 url: "",
@@ -65,32 +87,51 @@
                 this.categorias = response.data;
             });
             this.url = window.location.pathname;
-            console.log(this.url);
         },
         methods:{
+            pagCategorias(){
+                history.pushState(null, null, "http://127.0.0.1:8000/admin/categorias");
+                this.url= 'categorias';
+            },
+            pagProductos(){
+                history.pushState(null, null, "http://127.0.0.1:8000/admin/productos");
+                this.url= 'productos';
+            },
+            pagVentas(){
+                history.pushState(null, null, "http://127.0.0.1:8000/admin/ventas");
+                this.url= 'ventas';
+            },
+            pagUsuarios(){
+                history.pushState(null, null, "http://127.0.0.1:8000/admin/usuarios");
+                this.url= 'usuarios';
+
+            },
+            pagProveedores(){
+                history.pushState(null, null, "http://127.0.0.1:8000/admin/proveedores");
+                this.url= 'proveedores';
+            },
            getProductos(){
                 axios.get('/admin/productos').then(response=>{
                 this.productos = response.data;
-                console.log(response);
                 });
-                // location.href = "http://127.0.0.1:8000/admin/productos";
                 history.pushState(null, null, "http://127.0.0.1:8000/admin/productos");
                 this.url= 'productos';
-                console.log(this.url);
             },
             getCategorias(){
                 axios.get('/admin/categorias').then(response=>{
                 this.categorias = response.data;
-                console.log(response);
                 });
-                history.pushState(null, null, "http://127.0.0.1:8000/admin/categorias");
-                this.url= 'categorias';
+                
                 
             },
             getCategoria(id){
                 axios.get(`/admin/categorias/${id}`).then(response=>{
                 this.productos = response.data;
-                console.log(response);
+                });
+            },
+            getUsuarios(){
+                axios.get(`/admin/usuarios`).then(response=>{
+                this.usuarios = response.data;
                 });
             }
         }

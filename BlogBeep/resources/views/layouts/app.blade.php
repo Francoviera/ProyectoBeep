@@ -11,17 +11,31 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://kit.fontawesome.com/4b4084f640.js" crossorigin="anonymous"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="{{ asset('js/jquery.mCustomScrollbar.concat.min.js') }}" ></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/material.min.js') }}" ></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}" ></script>
+    <script src="{{ asset('js/main.js') }}" ></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/sweetalert2.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/material.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/material-design-iconic-font.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/jquery.mCustomScrollbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+<body >
+    <div id="app" class="login-wrap cover">
+        {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -70,7 +84,7 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav> --}}
 
         <main class="py-4">
             @yield('content')

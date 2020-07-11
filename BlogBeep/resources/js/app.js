@@ -24,6 +24,10 @@ Vue.component('navlateral-component', require('./components/admin/NavLateralComp
 Vue.component('productos-component', require('./components/admin/ProductosComponent.vue').default);
 Vue.component('navhorizontal-component', require('./components/admin/NavHorizontalComponent.vue').default);
 Vue.component('categorias-component', require('./components/admin/CategoriasComponent.vue').default);
+Vue.component('ventas-component', require('./components/admin/VentasComponent.vue').default);
+Vue.component('usuarios-component', require('./components/admin/UsuariosComponent.vue').default);
+Vue.component('proveedores-component', require('./components/admin/ProveedoresComponent.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
