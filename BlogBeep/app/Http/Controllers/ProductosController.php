@@ -49,6 +49,7 @@ class ProductosController extends Controller
         $productoNuevo->precio= $request->precio;
         $productoNuevo->cantidad= $request->cantidad;
         $productoNuevo->id_categoria= $request->id_categoria;
+        $productoNuevo->id_proveedor= $request->id_proveedor;
 
         $productoNuevo->save();
 
@@ -95,6 +96,7 @@ class ProductosController extends Controller
         $producto->precio= $request->precio;
         $producto->cantidad= $request->cantidad;
         $producto->id_categoria= $request->id_categoria;
+        $producto->id_proveedor= $request->id_proveedor;
 
         $producto->save();
 

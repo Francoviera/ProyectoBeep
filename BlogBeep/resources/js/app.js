@@ -27,6 +27,8 @@ Vue.component('categorias-component', require('./components/admin/CategoriasComp
 Vue.component('ventas-component', require('./components/admin/VentasComponent.vue').default);
 Vue.component('usuarios-component', require('./components/admin/UsuariosComponent.vue').default);
 Vue.component('proveedores-component', require('./components/admin/ProveedoresComponent.vue').default);
+Vue.component('home-component', require('./components/admin/HomeComponent.vue').default);
+Vue.component('pedidos-component', require('./components/admin/PedidosComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

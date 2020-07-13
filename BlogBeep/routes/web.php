@@ -2,23 +2,21 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::get('/', function(){
+    return view('welcome');
+})->name('welcome');
 
-Route::get('/', 'PageController@welcome')->name('welcome');
+Route::resource('/admin/productos', 'ProductosController')->middleware('admin');
+Route::resource('/admin/categorias', 'CategoriasController')->middleware('admin');
+Route::resource('/admin/compras', 'ComprasController')->middleware('admin');
+Route::resource('/admin/usuarios', 'UsuariosController')->middleware('admin');
+Route::resource('/admin/proveedores', 'ProveedoresController')->middleware('admin');
+Route::resource('/admin/pedidos', 'PedidosController')->middleware('admin');
+Route::delete('/admin/pedido/{id?}', 'PedidosController@eliminar')->middleware('admin');
+Route::get('/admin', 'HomeController@admin')->middleware('admin');
 
-Route::resource('/admin/productos', 'ProductosController');
-Route::resource('/admin/categorias', 'CategoriasController');
-Route::resource('/admin/compras', 'ComprasController');
-Route::resource('/admin/usuarios', 'UsuariosController');
+Route::get('/admin/users', 'HomeController@getUsers')->middleware('admin');
+Route::get('/admin/admins', 'HomeController@getAdmins')->middleware('admin');
 
 Route::get('/usuario/admin?', 'UsuariosController@getTipo');
 Route::get('/usuario/logged', 'UsuariosController@getUserlogged');

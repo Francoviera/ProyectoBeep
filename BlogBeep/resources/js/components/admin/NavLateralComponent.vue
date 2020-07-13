@@ -17,7 +17,7 @@
         <nav class="full-width">
             <ul class="full-width list-unstyle menu-principal">
                 <li class="full-width">
-                    <a class="full-width">
+                    <a @click="pagHome()" class="full-width">
                         <div class="navLateral-body-cl">
                             <i class="zmdi zmdi-view-dashboard"></i>
                         </div>
@@ -59,12 +59,12 @@
                             </a>
                         </li>
                         <li class="full-width">
-                            <a class="full-width">
+                            <a @click="pagPedidos()" class="full-width">
                                 <div class="navLateral-body-cl">
                                     <i class="zmdi zmdi-card"></i>
                                 </div>
                                 <div class="navLateral-body-cr">
-                                    PAGOS
+                                    PEDIDOS
                                 </div>
                             </a>
                         </li>
@@ -193,9 +193,10 @@
             return{    
             }
         },
-        created(){
-        },
         methods:{
+            pagHome(){
+                this.$emit('pagHome');
+            },
             pagProductos(){
                 this.$emit('pagProductos');
             },
@@ -211,6 +212,9 @@
             pagProveedores(){
                 this.$emit('pagProveedores');
             },
+            pagPedidos(){
+                this.$emit('pagPedidos');
+            }
         }
     }
 </script>

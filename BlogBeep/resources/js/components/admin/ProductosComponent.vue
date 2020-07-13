@@ -54,9 +54,9 @@
                                     </div>
                                     <div class="mdl-cell mdl-cell--12-col">
                                         <div class="mdl-textfield mdl-js-textfield">
-                                            <select class="mdl-textfield__input">
-                                                <option value="" disabled="" selected="">Proveedor</option>
-                                                <option value="">Provider 1</option>
+                                            <select v-model="producto.id_proveedor" class="mdl-textfield__input">
+                                                <option value="" disabled="" selected="">Seleccione</option>
+                                                <option v-for="(proveedor, index) in proveedores" :key="index" v-bind:value="{ proveedor}">{{proveedor.name}}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -207,10 +207,36 @@
                             </div>
                             <div class="mdl-card__actions mdl-card--border">
                                 {{producto.nombre}}
-                                <button class="btn btn-warning btn-sm" @click="formEdit(producto)">Editar</button>
-                                <button class="btn btn-danger btn-sm" @click="eliminar(producto, index)">Eliminar</button>								
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" @click="guardarPedido(producto)">Agregar Pedido</button>
+                                <!-- <button class="btn btn-warning btn-sm" @click="formEdit(producto)">Editar</button>
+                                <button class="btn btn-danger btn-sm" @click="eliminar(producto, index)">Eliminar</button> -->
+							
                             </div>
                         </div>   
+                    </div>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Agregar Pedido</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Cantidades del Producto</label>
+                                <input type="number" class="form-control" id="recipient-name" v-model="pedidoCantidad">
+                            </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary"  @click="agregarPedido()">Agregar</button>
+                        </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -219,7 +245,7 @@
 </template>
 <script>
     export default {
-        props:['user', 'productos', 'categorias'],
+        props:['user', 'productos', 'categorias', 'proveedores'],
         data: function(){
             return{
                modoEditar:false, 
@@ -228,7 +254,14 @@
                     nombre: '',
                     precio: '',
                     cantidad: '',
-                    id_categoria: ''
+                    id_categoria: '',
+                    id_proveedor: '',
+                },
+                pedidoCantidad: 0,
+                pedido: {
+                    nombre: "",
+                    cantidad: "",
+                    id_proveedor: "",
                 }
             }
         },
@@ -246,23 +279,43 @@
                 this.$emit('getCategoria', id);
 
             },
+            agregarPedido(){
+                const params= {
+                    nombre: this.pedido.nombre,
+                    cantidad: this.pedido.cantidad,
+                    id_proveedor: this.pedido.id_proveedor
+                }
+
+                axios.post('/admin/pedidos', params)
+                .then(res =>{
+                    alert('Pedido Cargado');
+
+                });
+            },
             agregar(){
                 const params= {
                     nombre: this.producto.nombre,
                     precio: this.producto.precio,
                     cantidad: this.producto.cantidad,
-                    id_categoria: this.producto.id_categoria.categoria.id
+                    id_categoria: this.producto.id_categoria.categoria.id,
+                    id_proveedor: this.producto.id_proveedor.proveedor.id
                 }
                 this.producto.nombre= ' ';
                 this.producto.precio= ' ';
                 this.producto.cantidad= ' ';
                 this.producto.id_categoria= ' ';
+                this.producto.id_proveedor= ' ';
 
                 axios.post('/admin/productos', params)
                 .then(res =>{
                     alert('Producto Cargado');
 
                 });
+            },
+            guardarPedido(producto){
+                this.pedido.nombre= producto.nombre;
+                this.pedido.cantidad= producto.cantidad;
+                this.pedido.id_proveedor= producto.id_proveedor;
             },
             editar(){
                 let divAgregar= document.querySelector(".divAgregar");
@@ -273,7 +326,8 @@
                     nombre: this.producto.nombre,
                     precio: this.producto.precio,
                     cantidad: this.producto.cantidad,
-                    id_categoria: this.producto.id_categoria.categoria.id
+                    id_categoria: this.producto.id_categoria.categoria.id,
+                    id_proveedor: this.producto.id_proveedor.proveedor.id
                 }
 
                 axios.put(`/admin/productos/${this.producto.id}`, params)
@@ -283,7 +337,9 @@
                     this.producto.nombre= '';
                     this.producto.precio= '';
                     this.producto.cantidad= '';
-                    this.producto.id_categoria= '';                  
+                    this.producto.id_categoria= '';
+                    this.producto.id_proveedor= ' ';    
+
                 });
                 this.$emit('getProductos',);
                 divProductos.classList.toggle("is-active");
@@ -308,7 +364,8 @@
                 this.producto.nombre= producto.nombre;
                 this.producto.precio= producto.precio;
                 this.producto.cantidad= producto.cantidad;
-                this.producto.id_categoria= producto.id_categoria;         
+                this.producto.id_categoria= producto.id_categoria;  
+                this.producto.id_proveedor= producto.id_proveedor;     
             }
         }
     }

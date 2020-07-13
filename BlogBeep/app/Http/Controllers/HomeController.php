@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App;
 
 class HomeController extends Controller
 {
@@ -24,5 +25,17 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+    public function admin()
+    {
+        return view('admin');
+    }
+    public function getUsers()
+    {
+        return App\User::where('type', 'user')->get();
+    }
+    public function getAdmins()
+    {
+        return App\User::where('type', 'admin')->get();
     }
 }

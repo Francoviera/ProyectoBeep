@@ -27,6 +27,8 @@ class CreateProductosTable extends Migration
             $table->integer('cantidad');
             $table->bigInteger('id_categoria')->unsigned();
             $table->foreign('id_categoria')->references('id')->on('categorias');
+            $table->bigInteger('id_proveedor')->unsigned();
+            $table->foreign('id_proveedor')->references('id')->on('proveedors');
             $table->timestamps();
         });
     }

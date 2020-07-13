@@ -14,8 +14,8 @@ class ComprasController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->ajax()){
-            return Compra::where('id_user', auth()->id())->get();
+        if($request->wantsJson()){
+            return Compra::all();
         }else{
             return view('compras');
         }
