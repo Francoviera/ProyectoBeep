@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Storage;
 use App;
 
 class ProductosController extends Controller
@@ -44,15 +45,23 @@ class ProductosController extends Controller
      */
     public function store(Request $request)
     {
+        $data = json_decode($request->data);
+        $path= '';
         $productoNuevo= new App\Producto();
-        $productoNuevo->nombre= $request->nombre;
-        $productoNuevo->precio= $request->precio;
-        $productoNuevo->cantidad= $request->cantidad;
-        $productoNuevo->id_categoria= $request->id_categoria;
-        $productoNuevo->id_proveedor= $request->id_proveedor;
-
+        $productoNuevo->nombre= $data->nombre;
+        $productoNuevo->precio= $data->precio;
+        $productoNuevo->cantidad= $data->cantidad;
+        $productoNuevo->id_categoria= $data->id_categoria;
+        $productoNuevo->id_proveedor= $data->id_proveedor;
+        if ($request->hasFile('image')) {
+            // $path= $request->file('image')->store('imgProductos'); 
+            $nombre=time().$request->file('image')->getClientOriginalName();
+            $request->file('image')->move('imgProductos', $nombre);
+            $productoNuevo->img= $nombre;
+        }
+        // $productoNuevo->img= $path;
         $productoNuevo->save();
-
+        
         return $productoNuevo;
     }
 

@@ -12,56 +12,35 @@
                             Nuevo Proveedor
                         </div>
                         <div class="full-width panel-content">
-                            <form>
+                            <form @submit.prevent="agregar">
                                 <div class="mdl-grid">
                                     <div class="mdl-cell mdl-cell--12-col">
                                         <legend class="text-condensedLight"><i class="zmdi zmdi-border-color"></i> &nbsp; INFORMACION PROVEEDOR</legend><br>
                                     </div>
                                     <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
                                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                            <input class="mdl-textfield__input" type="number" pattern="-?[0-9]*(\.[0-9]+)?" id="DNIProvider">
-                                            <label class="mdl-textfield__label" for="DNIProvider">DNI</label>
-                                            <span class="mdl-textfield__error">Numero</span>
-                                        </div>
-                                    </div>
-                                    <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
-                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                            <input class="mdl-textfield__input" type="text" pattern="-?[A-Za-z0-9 ]*(\.[0-9]+)?" id="NameProvider">
+                                            <input class="mdl-textfield__input" type="text" pattern="-?[A-Za-z0-9 ]*(\.[0-9]+)?" id="NameProvider" v-model="proveedor.name">
                                             <label class="mdl-textfield__label" for="NameProvider">Nombre</label>
                                             <span class="mdl-textfield__error">Nombre Invalido</span>
                                         </div>
                                     </div>
-                                    <div class="mdl-cell mdl-cell--12-col">
-                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                            <input class="mdl-textfield__input" type="text" id="addressProvider">
-                                            <label class="mdl-textfield__label" for="addressProvider">Direccion</label>
-                                            <span class="mdl-textfield__error">Direccion Invalido</span>
-                                        </div>
-                                    </div>
                                     <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
                                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                            <input class="mdl-textfield__input" type="tel" pattern="-?[0-9+()- ]*(\.[0-9]+)?" id="phoneProvider">
+                                            <input class="mdl-textfield__input" type="tel"  id="phoneProvider" v-model="proveedor.telefono">
                                             <label class="mdl-textfield__label" for="phoneProvider">Telefono</label>
                                             <span class="mdl-textfield__error">Telefono Invalido</span>
                                         </div>
                                     </div>
                                     <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
                                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                            <input class="mdl-textfield__input" type="email" id="emailProvider">
+                                            <input class="mdl-textfield__input" type="email" id="emailProvider" v-model="proveedor.email">
                                             <label class="mdl-textfield__label" for="emailProvider">E-mail</label>
-                                            <span class="mdl-textfield__error">Invalid E-mail</span>
-                                        </div>
-                                    </div>
-                                    <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
-                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                            <input class="mdl-textfield__input" type="text" id="webProvider">
-                                            <label class="mdl-textfield__label" for="webProvider">Web</label>
-                                            <span class="mdl-textfield__error">Invalid Web Address</span>
+                                            <span class="mdl-textfield__error">E-mail Invalido</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="text-center">
-                                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored bg-primary" id="btn-addProvider">
+                                    <button type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored bg-primary" id="btn-addProvider">
                                         <i class="zmdi zmdi-plus"></i>
                                     </button>
                                     <div class="mdl-tooltip" for="btn-addProvider">Agregar Proveedor</div>
@@ -87,28 +66,28 @@
                                     </div>
                                     <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
                                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                            <input class="mdl-textfield__input" type="text" pattern="-?[A-Za-z0-9 ]*(\.[0-9]+)?" id="NameProvider">
+                                            <input class="mdl-textfield__input" type="text" pattern="-?[A-Za-z0-9 ]*(\.[0-9]+)?" id="NameProvider" v-model="proveedor.name">
                                             <label class="mdl-textfield__label" for="NameProvider">Nombre</label>
                                             <span class="mdl-textfield__error">Nombre Invalido</span>
                                         </div>
                                     </div>
                                     <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
                                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                            <input class="mdl-textfield__input" type="tel" pattern="-?[0-9+()- ]*(\.[0-9]+)?" id="phoneProvider">
+                                            <input class="mdl-textfield__input" type="tel"  id="phoneProvider" v-model="proveedor.telefono">
                                             <label class="mdl-textfield__label" for="phoneProvider">Telefono</label>
                                             <span class="mdl-textfield__error">Telefono Invalido</span>
                                         </div>
                                     </div>
                                     <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
                                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                            <input class="mdl-textfield__input" type="email" id="emailProvider">
+                                            <input class="mdl-textfield__input" type="email" id="emailProvider" v-model="proveedor.email">
                                             <label class="mdl-textfield__label" for="emailProvider">E-mail</label>
                                             <span class="mdl-textfield__error">E-mail Invalido</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="text-center">
-                                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored bg-primary" id="btn-addProvider">
+                                    <button type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored bg-primary" id="btn-addProvider">
                                         <i class="zmdi zmdi-plus"></i>
                                     </button>
                                     <div class="mdl-tooltip" for="btn-addProvider">Editar Proveedor</div>
@@ -147,7 +126,8 @@
                                             <span class="mdl-list__item-sub-title">{{proveedor.telefono}}</span>
                                             <span class="mdl-list__item-sub-title">{{proveedor.email}}</span>
                                         </span>
-                                        <a class="mdl-list__item-secondary-action" href="#!"><i class="zmdi zmdi-more"></i></a>
+                                        <button class="btn btn-warning btn-sm" @click="formEdit(proveedor)">Editar</button>
+                                        <button class="btn btn-danger btn-sm" @click="eliminar(proveedor)">Eliminar</button>
                                     </div>
                                     <li class="full-width divider-menu-h"></li>
                                 </div>
@@ -178,6 +158,35 @@
             getProveedores(){
                 this.$emit('getProveedores');
             },
+            agregar(){
+                const params= {
+                    name: this.proveedor.name,
+                    telefono: this.proveedor.telefono,
+                    email: this.proveedor.email,
+                }
+                this.proveedor.name= ' ';
+                this.proveedor.telefono= ' ';
+                this.proveedor.email= ' ';
+
+
+                axios.post('/admin/proveedores', params)
+                .then(res =>{
+                    alert('Proveedor Cargado');
+                    this.getProveedores();
+                });
+            },
+            formEdit(proveedor){
+                let divEditar= document.querySelector(".divEditar");
+                let divProveedores= document.querySelector(".divProveedores");
+
+                divProveedores.classList.toggle("is-active");
+                divEditar.classList.toggle("is-active"); 
+                
+                this.proveedor.id= proveedor.id;
+                this.proveedor.name= proveedor.name;
+                this.proveedor.telefono= proveedor.telefono;
+                this.proveedor.email= proveedor.email; 
+            }
         }
     }
 </script>

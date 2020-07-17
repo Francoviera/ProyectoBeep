@@ -13,11 +13,11 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://kit.fontawesome.com/4b4084f640.js" crossorigin="anonymous"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="{{ asset('js/jquery.mCustomScrollbar.concat.min.js') }}" ></script>
+    <script src="{{ asset('js/admin/jquery.mCustomScrollbar.concat.min.js') }}" ></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/material.min.js') }}" ></script>
-    <script src="{{ asset('js/sweetalert2.min.js') }}" ></script>
-    <script src="{{ asset('js/main.js') }}" ></script>
+    <script src="{{ asset('js/admin/material.min.js') }}" ></script>
+    <script src="{{ asset('js/admin/sweetalert2.min.js') }}" ></script>
+    <script src="{{ asset('js/admin/main.js') }}" ></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

@@ -19,6 +19,13 @@ class CreateProductosTable extends Migration
             $table->String('descripcion');
             $table->timestamps();
         });
+        Schema::create('proveedors', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->double('telefono');
+            $table->timestamps();
+        });
 
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
@@ -29,6 +36,7 @@ class CreateProductosTable extends Migration
             $table->foreign('id_categoria')->references('id')->on('categorias');
             $table->bigInteger('id_proveedor')->unsigned();
             $table->foreign('id_proveedor')->references('id')->on('proveedors');
+            $table->String('img');
             $table->timestamps();
         });
     }
@@ -42,5 +50,6 @@ class CreateProductosTable extends Migration
     {
         Schema::dropIfExists('productos');
         Schema::dropIfExists('categorias');
+        Schema::dropIfExists('proveedors');
     }
 }

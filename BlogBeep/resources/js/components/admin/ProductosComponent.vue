@@ -12,7 +12,7 @@
                             Nuevo Producto
                         </div>
                         <div class="full-width panel-content">
-                            <form @submit.prevent="agregar" >
+                            <form @submit.prevent="agregar" enctype="multipart/form-data">
                                 <div class="mdl-grid">
                                     <div class="mdl-cell mdl-cell--12-col">
                                         <legend class="text-condensedLight"><i class="zmdi zmdi-border-color"></i> &nbsp; INFORMACION BASICA</legend><br>
@@ -65,16 +65,12 @@
                                     </div>
                                     <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
                                         <div class="mdl-textfield mdl-js-textfield">
-                                            <select class="mdl-textfield__input">
-                                                <option value="" disabled="" selected="">Estado</option>
-                                                <option value="">Con Stock</option>
-                                                <option value="">Sin Stock</option>
-                                            </select>
+                                            <input type="file" @change="obtenerImagen">
                                         </div>
                                     </div>
                                     <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
                                         <div class="mdl-textfield mdl-js-textfield">
-                                            <input type="file">
+                                            <img width="200" height="200" :src="imagen">
                                         </div>
                                     </div>
                                 </div>
@@ -199,7 +195,9 @@
                     <div class="full-width text-center" style="padding: 30px 0;">
                         <div class="mdl-card mdl-shadow--2dp full-width product-card" v-for="(producto, index) in productos" :key="index">
                             <div class="mdl-card__title">
-                                <img  alt="product" class="img-responsive">
+                                <!-- <img v-bind:src="'public/storage/app/'+producto.img"> -->
+                                <img width="200" height="180" :src="'/imgProductos/'+producto.img">
+                                <!-- <img :src="require('/storage/app'+producto.img)" /> -->
                             </div>
                             <div class="mdl-card__supporting-text">
                                 <small>Cantidad:</small><small v-if="producto.cantidad <= 5" class="text-danger">{{producto.cantidad}}</small><small v-else class="text-success">{{producto.cantidad}}</small><br>
@@ -249,6 +247,7 @@
         data: function(){
             return{
                modoEditar:false, 
+               imagenMiniatura: " ",
                producto:{
                     id: '',
                     nombre: '',
@@ -256,6 +255,7 @@
                     cantidad: '',
                     id_categoria: '',
                     id_proveedor: '',
+                    img: ' ',
                 },
                 pedidoCantidad: 0,
                 pedido: {
@@ -268,6 +268,11 @@
         created(){
 
         },
+        computed:{
+            imagen(){
+                return this.imagenMiniatura;
+            }
+        },
         methods:{
             getProductos(){
                 this.$emit('getProductos');
@@ -278,6 +283,20 @@
             getCategoria(id){
                 this.$emit('getCategoria', id);
 
+            },
+            obtenerImagen(e){
+                let file= e.target.files[0];
+
+                this.producto.img= file;
+                this.cargarImagen(file);
+            },
+            cargarImagen(file){
+                let reader= new FileReader();
+
+                reader.onload= (e) =>{
+                    this.imagenMiniatura= e.target.result;
+                }
+                reader.readAsDataURL(file);
             },
             agregarPedido(){
                 const params= {
@@ -298,18 +317,25 @@
                     precio: this.producto.precio,
                     cantidad: this.producto.cantidad,
                     id_categoria: this.producto.id_categoria.categoria.id,
-                    id_proveedor: this.producto.id_proveedor.proveedor.id
+                    id_proveedor: this.producto.id_proveedor.proveedor.id,
+                    // img: this.producto.img
                 }
+                let formData = new FormData();
+                formData.append("data",  JSON.stringify(params));
+                formData.append("image", this.producto.img);
+
                 this.producto.nombre= ' ';
                 this.producto.precio= ' ';
                 this.producto.cantidad= ' ';
                 this.producto.id_categoria= ' ';
                 this.producto.id_proveedor= ' ';
-
-                axios.post('/admin/productos', params)
+                console.log(this.producto.img);
+                axios.post('/admin/productos', formData, {
+                    headers: { "Content-Type": "multipart/form-data" }
+                })
                 .then(res =>{
                     alert('Producto Cargado');
-
+                    console.log(res.data);
                 });
             },
             guardarPedido(producto){
@@ -327,7 +353,8 @@
                     precio: this.producto.precio,
                     cantidad: this.producto.cantidad,
                     id_categoria: this.producto.id_categoria.categoria.id,
-                    id_proveedor: this.producto.id_proveedor.proveedor.id
+                    id_proveedor: this.producto.id_proveedor.proveedor.id,
+                    img: this.producto.img
                 }
 
                 axios.put(`/admin/productos/${this.producto.id}`, params)

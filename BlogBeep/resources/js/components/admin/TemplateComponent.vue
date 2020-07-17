@@ -134,6 +134,7 @@
             pagProveedores(){
                 // history.pushState(null, null, "http://127.0.0.1:8000/admin/proveedores");
                 this.url= 'proveedores';
+                this.getProveedores();
             },
             pagPedidos(){
                 this.url= 'pedidos';
