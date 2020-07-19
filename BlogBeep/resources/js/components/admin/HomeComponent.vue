@@ -3,7 +3,7 @@
         <section class="full-width text-center" style="padding: 40px 0;">
             <h3 class="text-center tittles">TITULOS</h3>
             <!-- Tiles -->
-            <article class="full-width tile">
+            <article class="full-width tile"  @click="pagUsuarios()">
                 <div class="tile-text">
                     <span class="text-condensedLight">
                         {{admins}}<br>
@@ -12,7 +12,7 @@
                 </div>
                 <i class="zmdi zmdi-account tile-icon"></i>
             </article>
-            <article class="full-width tile">
+            <article class="full-width tile" @click="pagUsuarios()">
                 <div class="tile-text">
                     <span class="text-condensedLight">
                         {{users}}<br>
@@ -21,7 +21,7 @@
                 </div>
                 <i class="zmdi zmdi-accounts tile-icon"></i>
             </article>
-            <article class="full-width tile">
+            <article class="full-width tile" @click="pagProveedores()">
                 <div class="tile-text">
                     <span class="text-condensedLight">
                         {{proveedores.length}}<br>
@@ -30,7 +30,7 @@
                 </div>
                 <i class="zmdi zmdi-truck tile-icon"></i>
             </article>
-            <article class="full-width tile">
+            <article class="full-width tile" @click="pagCategorias()">
                 <div class="tile-text">
                     <span class="text-condensedLight">
                         {{categorias.length}}<br>
@@ -39,7 +39,7 @@
                 </div>
                 <i class="zmdi zmdi-label tile-icon"></i>
             </article>
-            <article class="full-width tile">
+            <article class="full-width tile" @click="pagProductos()">
                 <div class="tile-text">
                     <span class="text-condensedLight">
                         {{productos.length}}<br>
@@ -48,7 +48,7 @@
                 </div>
                 <i class="zmdi zmdi-washing-machine tile-icon"></i>
             </article>
-            <article class="full-width tile">
+            <article class="full-width tile" @click="pagVentas()">
                 <div class="tile-text">
                     <span class="text-condensedLight">
                         {{ventas.length}}<br>
@@ -135,22 +135,27 @@
             });
         },
         methods:{
-            eliminar(id){;
-                axios.delete(`/usuarios/${id}`)
-                .then(()=>{
-                    aler("Usuario Eliminado");
-                    this.$emit('getUsuarios');
-                });
+            pagHome(){
+                this.$emit('pagHome');
             },
-            cambiarTipo(usuario){
-                const params= {
-                    type: usuario.type
-                }
-                axios.put(`/usuario/cambiarTipo/${usuario.id}`, params)
-                .then(()=>{
-                    this.$emit('getUsuarios');
-                });
+            pagProductos(){
+                this.$emit('pagProductos');
             },
+            pagCategorias(){
+                this.$emit('pagCategorias');
+            },
+            pagUsuarios(){
+                this.$emit('pagUsuarios');
+            },
+            pagVentas(){
+                this.$emit('pagVentas');
+            },
+            pagProveedores(){
+                this.$emit('pagProveedores');
+            },
+            pagPedidos(){
+                this.$emit('pagPedidos');
+            }
         } 
     }
 </script>

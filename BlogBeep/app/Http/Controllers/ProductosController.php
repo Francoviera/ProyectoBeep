@@ -46,7 +46,6 @@ class ProductosController extends Controller
     public function store(Request $request)
     {
         $data = json_decode($request->data);
-        $path= '';
         $productoNuevo= new App\Producto();
         $productoNuevo->nombre= $data->nombre;
         $productoNuevo->precio= $data->precio;
@@ -100,16 +99,40 @@ class ProductosController extends Controller
      */
     public function update(Request $request, $id)
     {      
+
         $producto= App\Producto::findOrFail($id);
-        $producto->nombre= $request->nombre;
-        $producto->precio= $request->precio;
-        $producto->cantidad= $request->cantidad;
-        $producto->id_categoria= $request->id_categoria;
-        $producto->id_proveedor= $request->id_proveedor;
+        $data = json_decode($request->data);
+        if ($request->hasFile('image')) {
+            $producto->nombre= $data->nombre;
+            $producto->precio= $data->precio;
+            $producto->cantidad= $data->cantidad;
+            $producto->id_categoria= $data->id_categoria;
+            $producto->id_proveedor= $data->id_proveedor;
 
-        $producto->save();
+            $image_path = public_path()."/imgProductos/".$data->img;
+            unlink($image_path);
+            
+            $nombre=time().$request->file('image')->getClientOriginalName();
+            $request->file('image')->move('imgProductos', $nombre);
+            $producto->img= $nombre;
 
-        return $producto;
+            $producto->save();
+    
+            return $producto;
+        }else{
+            $producto->nombre= $data->nombre;
+            $producto->precio= $data->precio;
+            $producto->cantidad= $data->cantidad;
+            $producto->id_categoria= $data->id_categoria;
+            $producto->id_proveedor= $data->id_proveedor;
+
+            $producto->save();
+    
+            return $producto;
+        }
+        
+        
+
     }
 
     /**
@@ -122,5 +145,7 @@ class ProductosController extends Controller
     {
         $producto = App\Producto::findOrFail($id);
         $producto->delete();
+        $image_path = public_path()."/imgProductos/".$producto->img;
+        unlink($image_path);
     }
 }

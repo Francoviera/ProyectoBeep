@@ -30,6 +30,12 @@
                 :proveedores='proveedores'
                 :ventas='ventas'
                 @pagHome="pagHome"
+                @pagProductos="pagProductos" 
+                @pagCategorias="pagCategorias"
+                @pagVentas="pagVentas"
+                @pagPedidos="pagPedidos"
+                @pagUsuarios="pagUsuarios"
+                @pagProveedores="pagProveedores"
                 v-show="url == '/admin'  || url == 'home' || url == '/admin/home'">
             </home-component>
 
@@ -67,6 +73,8 @@
 
             <pedidos-component 
                 :proveedores='proveedores'
+                :pedidos='pedidos'
+                @getPedidos="getPedidos"
                 v-show="url == '/admin/pedidos' || url == 'pedidos'">       
             </pedidos-component>
 
@@ -76,19 +84,14 @@
 
 <script>
     export default {
-        
         mounted() {
             this.url = window.location.pathname;
-            // window.onpopstate = function(event) {
-            //     // alert("location: " + document.location + ", state: " + JSON.stringify(event.state));
-            //     console.log(this.url);
-            //     this.verificarUrl();
-            // };
             history.pushState(null, null, "http://127.0.0.1:8000/admin");
         },
         data: function(){
             return{
                 proveedores: [],
+                pedidos: [],
                 productos: [],
                 categorias: [],
                 usuarios: [],
@@ -106,7 +109,6 @@
         },
         methods:{
             pagHome(){
-                // history.pushState(null, null, "http://127.0.0.1:8000/admin/home");
                 this.url= 'home';
                 this.getProductos();
                 this.getCategorias();
@@ -114,31 +116,27 @@
                 this.getProveedores();
             },
             pagCategorias(){
-                // history.pushState(null, null, "http://127.0.0.1:8000/admin/categorias");
                 this.url= 'categorias';
             },
             pagProductos(){
-                // history.pushState(null, null, "http://127.0.0.1:8000/admin/productos");
                 this.getProductos();
                 this.url= 'productos';
             },
             pagVentas(){
-                // history.pushState(null, null, "http://127.0.0.1:8000/admin/ventas");
                 this.url= 'ventas';
             },
             pagUsuarios(){
-                // history.pushState(null, null, "http://127.0.0.1:8000/admin/usuarios");
                 this.url= 'usuarios';
 
             },
             pagProveedores(){
-                // history.pushState(null, null, "http://127.0.0.1:8000/admin/proveedores");
                 this.url= 'proveedores';
                 this.getProveedores();
             },
             pagPedidos(){
                 this.url= 'pedidos';
                 this.getProveedores();
+                this.getPedidos();
             },
             getProductos(){
                 axios.get('/admin/productos').then(response=>{
@@ -169,6 +167,11 @@
                 axios.get(`/admin/compras`).then(response=>{
                 this.ventas = response.data;
                 });
+            },
+            getPedidos(){
+                axios.get(`/admin/pedidos`).then(response=>{
+                this.pedidos = response.data;
+            });
             },
         }
     }

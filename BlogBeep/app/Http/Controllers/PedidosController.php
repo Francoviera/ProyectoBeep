@@ -81,7 +81,14 @@ class PedidosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $pedido= App\pedido::findOrFail($id);
+        $pedido->nombre= $request->nombre;
+        $pedido->id_proveedor= $request->id_proveedor;
+        $pedido->cantidad= $request->cantidad;
+
+        $pedido->save();
+
+        return $pedido;
     }
     public function eliminar($id)
     {

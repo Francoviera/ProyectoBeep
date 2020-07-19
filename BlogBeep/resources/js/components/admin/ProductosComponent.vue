@@ -136,9 +136,9 @@
                                     </div>
                                     <div class="mdl-cell mdl-cell--12-col">
                                         <div class="mdl-textfield mdl-js-textfield">
-                                            <select class="mdl-textfield__input">
-                                                <option value="" disabled="" selected="">Proveedor</option>
-                                                <option value="">Provider 1</option>
+                                            <select v-model="producto.id_proveedor" class="mdl-textfield__input">
+                                                <option value="" disabled="" selected="">Seleccione</option>
+                                                <option v-for="(proveedor, index) in proveedores" :key="index" v-bind:value="{ proveedor}">{{proveedor.name}}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -147,16 +147,12 @@
                                     </div>
                                     <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
                                         <div class="mdl-textfield mdl-js-textfield">
-                                            <select class="mdl-textfield__input">
-                                                <option value="" disabled="" selected="">Estado</option>
-                                                <option value="">Con Stock</option>
-                                                <option value="">Sin Stock</option>
-                                            </select>
+                                            <input type="file" @change="obtenerImagen">
                                         </div>
                                     </div>
                                     <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
                                         <div class="mdl-textfield mdl-js-textfield">
-                                            <input type="file">
+                                            <img width="200" height="200" :src="imagen">
                                         </div>
                                     </div>
                                 </div>
@@ -205,36 +201,35 @@
                             </div>
                             <div class="mdl-card__actions mdl-card--border">
                                 {{producto.nombre}}
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" @click="guardarPedido(producto)">Agregar Pedido</button>
-                                <!-- <button class="btn btn-warning btn-sm" @click="formEdit(producto)">Editar</button>
-                                <button class="btn btn-danger btn-sm" @click="eliminar(producto, index)">Eliminar</button> -->
-							
+                                <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#exampleModal" @click="guardarPedido(producto)"><i class="fas fa-cart-plus"></i></button>
+                                <button class="btn btn-sm" @click="formEdit(producto)"><i class="far fa-edit"></i></button>
+                                <button class="btn btn-sm" @click="eliminar(producto, index)"><i class="fas fa-trash-alt"></i></button>
                             </div>
                         </div>   
                     </div>
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Agregar Pedido</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Cantidades del Producto</label>
-                                <input type="number" class="form-control" id="recipient-name" v-model="pedidoCantidad">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Agregar Pedido</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-                            </form>
+                            <div class="modal-body">
+                                <form>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Cantidades del Producto</label>
+                                    <input type="number" class="form-control" id="recipient-name" v-model="pedido.cantidad">
+                                </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-primary"  @click="agregarPedido()">Agregar</button>
+                            </div>
+                            </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary"  @click="agregarPedido()">Agregar</button>
-                        </div>
-                        </div>
-                    </div>
                     </div>
                 </div>
             </div>
@@ -255,9 +250,9 @@
                     cantidad: '',
                     id_categoria: '',
                     id_proveedor: '',
-                    img: ' ',
+                    img: '',
+                    imgAnterior: "",
                 },
-                pedidoCantidad: 0,
                 pedido: {
                     nombre: "",
                     cantidad: "",
@@ -324,11 +319,7 @@
                 formData.append("data",  JSON.stringify(params));
                 formData.append("image", this.producto.img);
 
-                this.producto.nombre= ' ';
-                this.producto.precio= ' ';
-                this.producto.cantidad= ' ';
-                this.producto.id_categoria= ' ';
-                this.producto.id_proveedor= ' ';
+                
                 console.log(this.producto.img);
                 axios.post('/admin/productos', formData, {
                     headers: { "Content-Type": "multipart/form-data" }
@@ -336,6 +327,12 @@
                 .then(res =>{
                     alert('Producto Cargado');
                     console.log(res.data);
+                    this.producto.nombre= ' ';
+                    this.producto.precio= ' ';
+                    this.producto.cantidad= ' ';
+                    this.producto.id_categoria= ' ';
+                    this.producto.id_proveedor= ' ';
+                    this.producto.imagenMiniatura= ''; 
                 });
             },
             guardarPedido(producto){
@@ -354,10 +351,15 @@
                     cantidad: this.producto.cantidad,
                     id_categoria: this.producto.id_categoria.categoria.id,
                     id_proveedor: this.producto.id_proveedor.proveedor.id,
-                    img: this.producto.img
+                    img: this.producto.imgAnterior
                 }
+                let formData = new FormData();
+                formData.append("data",  JSON.stringify(params));
+                formData.append("image", this.producto.img);
 
-                axios.put(`/admin/productos/${this.producto.id}`, params)
+                axios.put(`/admin/productos/${this.producto.id}`, formData, {
+                    headers: { "Content-Type": "multipart/form-data" }
+                })
                 .then(res=>{
                     alert('Producto Cargado');
 
@@ -365,8 +367,8 @@
                     this.producto.precio= '';
                     this.producto.cantidad= '';
                     this.producto.id_categoria= '';
-                    this.producto.id_proveedor= ' ';    
-
+                    this.producto.id_proveedor= '';    
+                    this.producto.imagenMiniatura= ''; 
                 });
                 this.$emit('getProductos',);
                 divProductos.classList.toggle("is-active");
@@ -392,7 +394,8 @@
                 this.producto.precio= producto.precio;
                 this.producto.cantidad= producto.cantidad;
                 this.producto.id_categoria= producto.id_categoria;  
-                this.producto.id_proveedor= producto.id_proveedor;     
+                this.producto.id_proveedor= producto.id_proveedor;  
+                this.producto.imgAnterior= producto.img;   
             }
         }
     }
