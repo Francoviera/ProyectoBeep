@@ -1,0 +1,12 @@
+.imgFooter{
+    background-image: url('../../img/footer-bg.png');
+
+}
+.imgHeader{
+    background-image: url('../../img/images.jpg');
+    /* background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover; */
+    width: auto;
+    height: auto;
+}

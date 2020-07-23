@@ -19,12 +19,9 @@ class ProductosController extends Controller
             $inventario= App\Producto::all();
             return $inventario;
         }else{
+            // $inventario= App\Producto::paginate(2);
             return view('productos');
         }
-        
-        // return json_encode([
-        //     'productos'=> $inventario 
-        // ]);
     }
 
     /**
@@ -32,9 +29,14 @@ class ProductosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function paginate(Request $request)
     {
-        //
+        if($request->wantsJson()){
+            $inventario= App\Producto::orderBy('nombre')->paginate(2);
+            // $inventario= App\Producto::all();
+
+            return $inventario;
+        }
     }
 
     /**

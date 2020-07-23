@@ -30,6 +30,8 @@ Vue.component('proveedores-component', require('./components/admin/ProveedoresCo
 Vue.component('home-component', require('./components/admin/HomeComponent.vue').default);
 Vue.component('pedidos-component', require('./components/admin/PedidosComponent.vue').default);
 
+Vue.component('productos-user', require('./components/user/productosComponent.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

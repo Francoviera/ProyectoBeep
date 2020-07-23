@@ -6,7 +6,7 @@
         <p class="text-center" style="font-size: 80px;">
             <i class="zmdi zmdi-account-circle"></i>
         </p>
-        <p class="text-center text-condensedLight">Bienvenido :)</p>
+        <h5 class="text-center text-condensedLight card-title">BIENVENIDO :)</h5>
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -40,6 +40,9 @@
             @if (Route::has('password.request'))
                 <a class="btn btn-link" href="{{ route('password.request') }}">
                     {{ __('¿Olvidaste tu contraseña?') }}
+                </a>
+                <a class="btn btn-link" href="{{ route('register') }}">
+                    {{ __('Registrarme') }}
                 </a>
             @endif
         </form>

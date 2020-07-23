@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function(){
     return view('welcome');
 })->name('welcome');
+Route::get('/productos', 'ProductosController@index')->name('productos');
+Route::get('/inventario', 'ProductosController@paginate');
 
 Route::resource('/admin/productos', 'ProductosController')->middleware('admin');
 Route::resource('/admin/categorias', 'CategoriasController')->middleware('admin');
