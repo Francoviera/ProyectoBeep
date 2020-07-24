@@ -52,17 +52,15 @@
                             <ul>
                                 <li class="active"><a href="{{route('welcome')}}">Home</a></li>
                                 <li><a href="{{route('productos')}}">Productos</a></li>
-                                <li><a href="">Trabajos</a></li>
-                                {{-- <li><a href="./tours.html">Tours</a></li> --}}
-                                <li><a href="">Videos</a></li>
-                                <li><a href="">Contacto </a></li>
-                                <li><a href="#">Pages</a>
-                                    <ul class="dropdown">
-                                        <li><a href="">About</a></li>
-                                        <li><a href="">Blog</a></li>
-                                        <li><a href="">Blog Details</a></li>
-                                    </ul>
-                                @guest
+                                <li><a href="{{route('contacto')}}">Contacto </a></li>
+                                <li><a href="{{route('reparaciones')}}">Reparaciones</a>
+                                    @if (Auth::check())
+                                        <ul class="dropdown">
+                                            <li><a href="">Estado Reparaciones</a></li>
+                                        </ul>
+                                    @endif
+                                </li>
+                                 @guest
                                     <li>
                                         <a  href="{{ route('login') }}">{{ __('Login') }}</a>
                                     </li>
@@ -71,12 +69,18 @@
                                             <a  href="{{ route('register') }}">{{ __('Register') }}</a>
                                         </li>
                                     @endif
-                                    @else
+                                    @else 
+                                        <li>
+                                            <a href="#"><i class="far fa-user"></i><span> </span><span >{{ Auth::user()->name }}</span></a>
+                                        </li>
                                         <li>
                                             <a href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
                                                             document.getElementById('logout-form').submit();">
-                                                <i class="fas fa-power-off"></i> <span >{{ Auth::user()->name }}</span>
+                                                <i class="fas fa-power-off"></i>
+                                                <ul class="dropdown">
+                                                    <li><span> Salir </span></li>
+                                                </ul>
                                             </a>
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                                 @csrf
@@ -85,8 +89,7 @@
                                 @endguest 
                             </ul>
                         </nav>
-                        <div class="header__right__social">   
-                        </div>
+                        <div class="header__right__social"></div>
                     </div>
                 </div>
             </div>

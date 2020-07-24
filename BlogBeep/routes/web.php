@@ -5,6 +5,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function(){
     return view('welcome');
 })->name('welcome');
+
+Route::get('/contacto', function(){
+    return view('contacto');
+})->name('contacto');
+
+Route::get('/reparaciones', function(){
+    return view('reparaciones');
+})->name('reparaciones');
+
 Route::get('/productos', 'ProductosController@index')->name('productos');
 Route::get('/inventario', 'ProductosController@paginate');
 

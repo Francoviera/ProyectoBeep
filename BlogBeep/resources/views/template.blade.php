@@ -52,18 +52,25 @@
                     <div class="header__nav">
                         <nav class="header__menu mobile-menu">
                             <ul>
-                                <li><a href="{{route('welcome')}}">Home</a></li>
-                                <li class="active"><a href="{{route('productos')}}">Productos</a></li>
-                                <li><a href="">About</a></li>
-                                {{-- <li><a href="">Tours</a></li> --}}
-                                <li><a href=".">Videos</a></li>
-                                <li><a href="">Contact</a></li>
-                                <li><a href="#">Pages</a>
-                                    <ul class="dropdown">
-                                        <li><a href="">About</a></li>
-                                        <li><a href="">Blog</a></li>
-                                        <li><a href="">Blog Details</a></li>
-                                    </ul>
+                                <li>
+                                    <a href="{{route('welcome')}}">Home</a>
+                                </li>
+                                <li @if ($_SERVER['REQUEST_URI'] === "/productos") class="active" @endif>
+                                    <a href="{{route('productos')}}">Productos</a>
+                                </li>
+                                <li @if ($_SERVER['REQUEST_URI'] === "/contacto") class="active" @endif>
+                                    <a href="{{route('contacto')}}">Contacto</a>
+                                </li>
+                                <li>
+                                    <a href="">About</a>
+                                </li>
+                                <li @if ($_SERVER['REQUEST_URI'] === "/reparaciones") class="active" @endif>
+                                    <a href="{{route('reparaciones')}}">Reparaciones</a>
+                                        @if (Auth::check())
+                                            <ul class="dropdown">
+                                                <li><a href="">Estado Reparaciones</a></li>
+                                            </ul>
+                                        @endif
                                 </li>
                                 @guest
                                     <li>
@@ -74,12 +81,18 @@
                                             <a  href="{{ route('register') }}">{{ __('Register') }}</a>
                                         </li>
                                     @endif
-                                    @else
+                                    @else 
+                                        <li>
+                                            <a href="#"><i class="far fa-user"></i><span> </span><span >{{ Auth::user()->name }}</span></a>
+                                        </li>
                                         <li>
                                             <a href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
                                                             document.getElementById('logout-form').submit();">
-                                                <i class="fas fa-power-off"></i> <span >{{ Auth::user()->name }}</span>
+                                                <i class="fas fa-power-off"></i>
+                                                <ul class="dropdown">
+                                                    <li><span> Salir </span></li>
+                                                </ul>
                                             </a>
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                                 @csrf
