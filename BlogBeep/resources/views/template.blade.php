@@ -69,6 +69,7 @@
                                         @if (Auth::check())
                                             <ul class="dropdown">
                                                 <li><a href="">Estado Reparaciones</a></li>
+                                                {{-- <li><a href="{{route('reparac')}}">Buscar Reparacion</a></li> --}}
                                             </ul>
                                         @endif
                                 </li>

@@ -15,6 +15,7 @@
                     @pagVentas="pagVentas"
                     @pagPedidos="pagPedidos"
                     @pagUsuarios="pagUsuarios"
+                    @pagReparaciones="pagReparaciones"
                     @pagProveedores="pagProveedores"> 
                 </navlateral-component>
             </div>
@@ -78,6 +79,11 @@
                 v-show="url == '/admin/pedidos' || url == 'pedidos'">       
             </pedidos-component>
 
+            <reparaciones-component 
+                :reparaciones='reparaciones'
+                @getReparaciones="getReparaciones"
+                v-show="url == '/admin/reparaciones' || url == 'reparaciones'">       
+            </reparaciones-component>
         </section>
     </div>
 </template>
@@ -91,6 +97,7 @@
         data: function(){
             return{
                 proveedores: [],
+                reparaciones: [],
                 pedidos: [],
                 productos: [],
                 categorias: [],
@@ -138,6 +145,10 @@
                 this.getProveedores();
                 this.getPedidos();
             },
+            pagReparaciones(){
+                this.url= 'reparaciones';
+                this.getReparaciones();
+            },
             getProductos(){
                 axios.get('/admin/productos').then(response=>{
                 this.productos = response.data;
@@ -171,8 +182,13 @@
             getPedidos(){
                 axios.get(`/admin/pedidos`).then(response=>{
                 this.pedidos = response.data;
-            });
+                });
             },
+            getReparaciones(){
+                axios.get(`/admin/reparaciones`).then(response=>{
+                this.reparaciones = response.data;
+                });
+            }
         }
     }
 </script>

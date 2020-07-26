@@ -127,8 +127,8 @@
                 </li>
                 <li class="full-width divider-menu-h"></li>
                 <li class="full-width">
-                    <a class="full-width">
-                        <div @click="pagVentas()" class="navLateral-body-cl">
+                    <a class="full-width" @click="pagVentas()" >
+                        <div class="navLateral-body-cl">
                             <i class="zmdi zmdi-shopping-cart"></i>
                         </div>
                         <div class="navLateral-body-cr">
@@ -138,48 +138,14 @@
                 </li>
                 <li class="full-width divider-menu-h"></li>
                 <li class="full-width">
-                    <a class="full-width">
-                        <div class="navLateral-body-cl">
-                            <i class="zmdi zmdi-store"></i>
-                        </div>
-                        <div class="navLateral-body-cr">
-                            INVENTARIO
-                        </div>
-                    </a>
-                </li>
-                <li class="full-width divider-menu-h"></li>
-                <li class="full-width">
-                    <a class="full-width btn-subMenu">
+                    <a class="full-width" @click="pagReparaciones()">
                         <div class="navLateral-body-cl">
                             <i class="zmdi zmdi-wrench"></i>
                         </div>
                         <div class="navLateral-body-cr">
-                            AJUSTES
+                            REPARACIONES
                         </div>
-                        <span class="zmdi zmdi-chevron-left"></span>
                     </a>
-                    <ul class="full-width menu-principal sub-menu-options">
-                        <li class="full-width">
-                            <a class="full-width">
-                                <div class="navLateral-body-cl">
-                                    <i class="zmdi zmdi-widgets"></i>
-                                </div>
-                                <div class="navLateral-body-cr">
-                                    OPCIONES
-                                </div>
-                            </a>
-                        </li>
-                        <li class="full-width">
-                            <a class="full-width">
-                                <div class="navLateral-body-cl">
-                                    <i class="zmdi zmdi-widgets"></i>
-                                </div>
-                                <div class="navLateral-body-cr">
-                                    OPCIONES
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
             </ul>
         </nav>
@@ -214,6 +180,9 @@
             },
             pagPedidos(){
                 this.$emit('pagPedidos');
+            },
+            pagReparaciones(){
+                this.$emit('pagReparaciones');
             }
         }
     }

@@ -23,6 +23,7 @@ Route::resource('/admin/compras', 'ComprasController')->middleware('admin');
 Route::resource('/admin/usuarios', 'UsuariosController')->middleware('admin');
 Route::resource('/admin/proveedores', 'ProveedoresController')->middleware('admin');
 Route::resource('/admin/pedidos', 'PedidosController')->middleware('admin');
+Route::resource('/admin/reparaciones', 'ReparacionesController')->middleware('admin');
 Route::delete('/admin/pedido/{id?}', 'PedidosController@eliminar')->middleware('admin');
 Route::get('/admin', 'HomeController@admin')->middleware('admin');
 

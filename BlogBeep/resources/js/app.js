@@ -32,8 +32,10 @@ Vue.component('usuarios-component', require('./components/admin/UsuariosComponen
 Vue.component('proveedores-component', require('./components/admin/ProveedoresComponent.vue').default);
 Vue.component('home-component', require('./components/admin/HomeComponent.vue').default);
 Vue.component('pedidos-component', require('./components/admin/PedidosComponent.vue').default);
+Vue.component('reparaciones-component', require('./components/admin/ReparacionesComponent.vue').default);
 
 Vue.component('productos-user', require('./components/user/productosComponent.vue').default);
+Vue.component('reparaciones-user', require('./components/user/reparacionesComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

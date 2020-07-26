@@ -15,6 +15,9 @@
         </div>
     </div>
     <!-- Breadcrumb End -->
+    <section class="about about--page spad">
+        <reparaciones-user />
+    </section>
 
     <!-- Skills Section Begin -->
     <section class="skills spad">
@@ -64,32 +67,6 @@
         </div>
     </section>
     <!-- Skills Section End -->
-
-    <!-- About Section Begin -->
-    <section class="about about--page spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="about__pic">
-                        <img src="img/about/about.png" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="about__text">
-                        <div class="section-title">
-                            <h2>He heard something that he knew to be music</h2>
-                        </div>
-                        <p>At vero eos et accusamus et iusto odi odgnissimos ducimus qui blanditiis praesentium volup
-                            tatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-                            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi quod
-                            justo pro an.</p>
-                        <img src="img/about/signature.png" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- About Section End -->
 
     <!-- About Pic Begin -->
     <div class="about-pic">

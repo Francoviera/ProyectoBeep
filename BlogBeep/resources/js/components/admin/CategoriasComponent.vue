@@ -150,7 +150,6 @@
 
                 axios.post('/admin/categorias', params)
                 .then(res =>{
-                    console.log(params);
                     alert('Categoria Cargada');
                 });
             },
@@ -174,7 +173,6 @@
                 divEditar.classList.toggle("is-active"); 
             },
             eliminar(categoria){
-                console.log(categoria);
                 axios.delete(`/admin/categorias/${categoria.id}`)
                 .then(()=>{
                     this.$emit('getCategorias');
@@ -187,7 +185,6 @@
 
                 divCategoria.classList.toggle("is-active"); 
                 divEditar.classList.toggle("is-active");
-                console.log(categoria);
                 this.categoria.id= categoria.id;
                 this.categoria.tipo= categoria.tipo;
                 this.categoria.descripcion= categoria.descripcion;   

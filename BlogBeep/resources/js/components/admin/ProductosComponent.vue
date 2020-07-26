@@ -319,14 +319,11 @@
                 formData.append("data",  JSON.stringify(params));
                 formData.append("image", this.producto.img);
 
-                
-                console.log(this.producto.img);
                 axios.post('/admin/productos', formData, {
                     headers: { "Content-Type": "multipart/form-data" }
                 })
                 .then(res =>{
                     alert('Producto Cargado');
-                    console.log(res.data);
                     this.producto.nombre= ' ';
                     this.producto.precio= ' ';
                     this.producto.cantidad= ' ';
@@ -344,7 +341,6 @@
                 let divAgregar= document.querySelector(".divAgregar");
                 let divEditar= document.querySelector(".divEditar");
                 let divProductos= document.querySelector(".divProductos");
-                console.log(this.producto.id);
                 const params= {
                     nombre: this.producto.nombre,
                     precio: this.producto.precio,
@@ -375,7 +371,6 @@
                 divEditar.classList.toggle("is-active");                
             },
             eliminar(producto, index){
-                console.log('llego');
                 axios.delete(`/admin/productos/${producto.id}`)
                 .then(()=>{
                     this.$emit('getCategoria', producto.id_categoria);
