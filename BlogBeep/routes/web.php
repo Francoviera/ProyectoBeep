@@ -2,20 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function(){
-    return view('welcome');
-})->name('welcome');
-
-Route::get('/contacto', function(){
-    return view('contacto');
-})->name('contacto');
-
-Route::get('/reparaciones', function(){
-    return view('reparaciones');
-})->name('reparaciones');
-
-Route::get('/productos', 'ProductosController@index')->name('productos');
+Route::get('/', 'PageController@welcome')->name('welcome');
+Route::get('/productos', 'PageController@productos')->name('productos');
+Route::get('/contacto', 'PageController@contacto')->name('contacto');
+Route::get('/reparaciones', 'PageController@reparaciones')->name('reparaciones');
 Route::get('/inventario', 'ProductosController@paginate');
+Route::get('/misreparaciones', 'PageController@reparacion')->name('misreparaciones');
 
 Route::resource('/admin/productos', 'ProductosController')->middleware('admin');
 Route::resource('/admin/categorias', 'CategoriasController')->middleware('admin');
@@ -23,7 +15,11 @@ Route::resource('/admin/compras', 'ComprasController')->middleware('admin');
 Route::resource('/admin/usuarios', 'UsuariosController')->middleware('admin');
 Route::resource('/admin/proveedores', 'ProveedoresController')->middleware('admin');
 Route::resource('/admin/pedidos', 'PedidosController')->middleware('admin');
+
 Route::resource('/admin/reparaciones', 'ReparacionesController')->middleware('admin');
+Route::post('/admin/reparaciones/responder', 'ReparacionesController@responder')->middleware('admin');
+Route::get('/misreparaciones/{id?}', 'ReparacionesController@misReparaciones')->middleware('auth');;
+
 Route::delete('/admin/pedido/{id?}', 'PedidosController@eliminar')->middleware('admin');
 Route::get('/admin', 'HomeController@admin')->middleware('admin');
 

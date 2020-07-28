@@ -25,9 +25,10 @@ class ReparacionesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function misReparaciones($id)
     {
-        //
+        $reparaciones = App\Reparacion::where('telefono', $id)->get();
+        return response()->json($reparaciones);
     }
 
     /**
@@ -61,9 +62,11 @@ class ReparacionesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($codigo)
     {
-        //
+        $reparacion = App\Reparacion::where('codigo', $codigo)->get();
+        return response()->json($reparacion);
+        // return $reparacion;
     }
 
     /**
@@ -72,9 +75,19 @@ class ReparacionesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function responder(Request $request)
     {
-        //
+        $reparacion= App\Reparacion::findOrFail($request->id);
+        if($request->opcion === "reparar"){
+            $reparacion->estado= "en curso";
+            $reparacion->rtaUsuario= $request->rtaUsuario;
+        }else{
+            $reparacion->estado= "terminada";
+            $reparacion->rtaUsuario= $request->rtaUsuario;
+        }
+
+        $reparacion->save();
+
     }
 
     /**

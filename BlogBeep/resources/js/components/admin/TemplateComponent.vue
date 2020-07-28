@@ -134,6 +134,7 @@
             },
             pagUsuarios(){
                 this.url= 'usuarios';
+                this.getUsuarios();
 
             },
             pagProveedores(){

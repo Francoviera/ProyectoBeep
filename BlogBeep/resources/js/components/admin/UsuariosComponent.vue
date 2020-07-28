@@ -1,7 +1,7 @@
 <template>
     <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
         <div class="mdl-tabs__tab-bar">
-            <a href="#tabListClient" class="mdl-tabs__tab">USUARIOS</a>
+            <a href="#tabListClient" class="mdl-tabs__tab is-active">USUARIOS</a>
         </div>
         <div class="mdl-tabs__panel is-active" id="tabListClient">
             <div class="mdl-grid">
@@ -17,13 +17,24 @@
                                         <i class="zmdi zmdi-search"></i>
                                     </label>
                                     <div class="mdl-textfield__expandable-holder">
-                                        <input class="mdl-textfield__input" type="text" id="searchClient">
+                                        <input class="mdl-textfield__input" type="text" placeholder="Nombre" id="searchClient" v-model="nombre">
                                         <label class="mdl-textfield__label"></label>
                                     </div>
                                 </div>
                             </form>
-                            <div class="mdl-list">
+                            <div class="mdl-list" v-show="nombre === ''">
                                 <div class="mdl-list__item mdl-list__item--two-line" v-for="(usuario, index) in usuarios" :key="index">
+                                    <span class="mdl-list__item-primary-content">
+                                        <i class="zmdi zmdi-account mdl-list__item-avatar"></i>
+                                        <span>{{usuario.name}}</span> <span v-if="usuario.type === 'admin'" class="text-danger">{{usuario.type}}</span> <span v-else class="text-success">{{usuario.type}}</span>
+                                        <span class="mdl-list__item-sub-title">{{usuario.telefono}}</span>
+                                    </span>
+                                    <button class="btn btn-warning btn-sm" @click="cambiarTipo(usuario)">Cambiar Tipo</button>
+                                <button class="btn btn-danger btn-sm" @click="eliminar(usuario.id)">Eliminar</button>
+                                </div>
+                            </div>
+                            <div class="mdl-list" v-show="nombre != ''">
+                                <div class="mdl-list__item mdl-list__item--two-line" v-for="(usuario, index) in searchUsuarios" :key="index">
                                     <span class="mdl-list__item-primary-content">
                                         <i class="zmdi zmdi-account mdl-list__item-avatar"></i>
                                         <span>{{usuario.name}}</span> <span v-if="usuario.type === 'admin'" class="text-danger">{{usuario.type}}</span> <span v-else class="text-success">{{usuario.type}}</span>
@@ -44,8 +55,15 @@
 <script>
     export default {
         props:['usuarios'],
-        mounted(){
-            this.$emit('getUsuarios');
+        data: function(){
+            return{
+                nombre: '',
+            }
+        },
+        computed:{
+            searchUsuarios: function () {
+                return this.usuarios.filter((item) => item.name.toLowerCase().includes(this.nombre.toLowerCase()));
+            }
         },
         methods:{
             eliminar(id){;

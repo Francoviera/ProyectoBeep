@@ -79,6 +79,7 @@
                                                     <option value="" disabled="" selected="">Seleccione</option>
                                                     <option value="en curso">en curso</option>
                                                     <option value="en espera de respuesto">en espera de respuesto</option>
+                                                    <option value="en espera de aprobacion">en espera de aprobacion</option>
                                                     <option value="terminada">terminada</option>
                                                 </select>
                                             </div>
@@ -112,22 +113,16 @@
                 <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--12-col-desktop">
                     <form action="#">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-                            <label class="mdl-button mdl-js-button mdl-button--icon" for="searchProduct">
+                            <label class="mdl-button mdl-js-button mdl-button--icon" for="searchPayment">
                                 <i class="zmdi zmdi-search"></i>
                             </label>
                             <div class="mdl-textfield__expandable-holder">
-                                <input class="mdl-textfield__input" type="text" id="searchProduct">
+                                <input class="mdl-textfield__input" type="text" placeholder="Nombre" id="searchPayment" v-model="nombre">
                                 <label class="mdl-textfield__label"></label>
                             </div>
                         </div>
                     </form>
-                    <!-- <nav class="full-width menu-categories">
-                        <ul class="list-unstyle text-center">
-                            <li ><a href="#!" >{{}}</a></li>
-                            
-                        </ul>
-                    </nav> -->
-                    <div class="full-width text-center" style="padding: 30px 0;">
+                    <div class="full-width text-center" style="padding: 30px 0;" v-show="nombre === ''">
                         <div class="mdl-card mdl-shadow--2dp full-width product-card" v-for="(reparacion, index) in reparaciones" :key="index">
                             <div class="mdl-card__title">
                                 <h4>{{reparacion.nombre}}</h4>
@@ -148,7 +143,27 @@
                             </div>
                         </div>   
                     </div>
-                    
+                    <div class="full-width text-center" style="padding: 30px 0;" v-show="nombre != ''">
+                        <div class="mdl-card mdl-shadow--2dp full-width product-card" v-for="(reparacion, index) in searchReparaciones" :key="index">
+                            <div class="mdl-card__title">
+                                <h4>{{reparacion.nombre}}</h4>
+                            </div>
+                            <div class="mdl-card__supporting-text">
+                                <span>Codigo: </span><span class="text">{{reparacion.codigo}}</span><br>
+                                <span>Telefono: </span><span>{{reparacion.telefono}}</span><br>
+                                <span> </span><br>
+                                <span class="text-danger">Daño: </span><span>{{reparacion.daño}}</span><br>
+                                <span></span><br>
+                                <span class="text-primary">Rta Tecnico: </span><span>{{reparacion.rtaTecnico}}</span><br>
+                                <span class="text-success">Rta Usuario: </span><span>{{reparacion.rtaUsuario}}</span><br>
+                            </div>
+                            <div class="mdl-card__actions mdl-card--border">
+                                {{reparacion.estado}}
+                                <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#exampleModal" @click="eliminar(reparacion.id)"><i class="fas fa-trash-alt"></i></button>
+                                <button class="btn btn-sm" @click="formEdit(reparacion)"><i class="far fa-edit"></i></button>
+                            </div>
+                        </div>   
+                    </div>
                 </div>
             </div>
             <div class="mdl-grid"  v-show="modoEditar">
@@ -224,6 +239,7 @@
                                                 <option value="" disabled="" selected="">{{reparacion.estado}}</option>
                                                 <option value="en curso">en curso</option>
                                                 <option value="en espera de respuesto">en espera de respuesto</option>
+                                                <option value="en espera de aprobacion">en espera de aprobacion</option>
                                                 <option value="terminada">terminada</option>
                                             </select>
                                         </div>
@@ -259,6 +275,7 @@
         data: function(){
             return{
                 modoEditar: false,
+                nombre: '',
                 reparacion: {
                     id: "",
                     nombre: "",
@@ -273,11 +290,10 @@
                 }
             }
         },
-        created(){
-
-        },
         computed:{
-            
+            searchReparaciones: function () {
+                return this.reparaciones.filter((item) => item.nombre.toLowerCase().includes(this.nombre.toLowerCase()));
+            }
         },
         methods:{
             getReparaciones(){

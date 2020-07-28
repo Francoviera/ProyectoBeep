@@ -36,6 +36,9 @@ Vue.component('reparaciones-component', require('./components/admin/Reparaciones
 
 Vue.component('productos-user', require('./components/user/productosComponent.vue').default);
 Vue.component('reparaciones-user', require('./components/user/reparacionesComponent.vue').default);
+Vue.component('imagenes-user', require('./components/user/imagenesComponent.vue').default);
+Vue.component('misreparaciones-user', require('./components/user/misreparacionesComponent.vue').default);
+Vue.component('contacto-user', require('./components/user/contactoComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

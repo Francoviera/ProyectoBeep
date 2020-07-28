@@ -18,9 +18,6 @@ class ProductosController extends Controller
         if($request->wantsJson()){
             $inventario= App\Producto::all();
             return $inventario;
-        }else{
-            // $inventario= App\Producto::paginate(2);
-            return view('productos');
         }
     }
 
@@ -32,8 +29,7 @@ class ProductosController extends Controller
     public function paginate(Request $request)
     {
         if($request->wantsJson()){
-            $inventario= App\Producto::orderBy('nombre')->paginate(2);
-            // $inventario= App\Producto::all();
+            $inventario= App\Producto::orderBy('nombre')->paginate(6);
 
             return $inventario;
         }

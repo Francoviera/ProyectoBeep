@@ -44,8 +44,58 @@
                 </div>
             </div>
         </div>
-        <div class="mdl-tabs__panel divEditar" id="tabNewCategory">
-            <div class="mdl-grid">
+        <div class="mdl-tabs__panel divCategoria" id="tabListCategory">0
+            <div class="mdl-grid" v-show="!modoEditar">
+                <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop mdl-cell--2-offset-desktop">
+                    <div class="full-width panel mdl-shadow--2dp">
+                        <div class="full-width panel-tittle bg-success text-center tittles">
+                            Lista Categorias
+                        </div>
+                        <div class="full-width panel-content">
+                            <form action="#">
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+                                    <label class="mdl-button mdl-js-button mdl-button--icon" for="searchCategory">
+                                        <i class="zmdi zmdi-search"></i>
+                                    </label>
+                                    <div class="mdl-textfield__expandable-holder">
+                                        <input class="mdl-textfield__input" type="text" placeholder="Nombre" id="searchCategory" v-model="nombre">
+                                        <label class="mdl-textfield__label"></label>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="mdl-list" v-show="nombre === ''">
+                                <div v-for="(categoria, index) in categorias" :key="index">
+                                    <div class="mdl-list__item mdl-list__item--two-line">
+                                        <span class="mdl-list__item-primary-content">
+                                            <i class="zmdi zmdi-label mdl-list__item-avatar"></i>
+                                            <span>1.{{categoria.tipo}}</span>
+                                            <span class="mdl-list__item-sub-title">{{categoria.descripcion}}</span>
+                                        </span>
+                                        <button class="btn btn-warning btn-sm" @click="formEdit(categoria)">Editar</button>
+                                        <button class="btn btn-danger btn-sm" @click="eliminar(categoria)">Eliminar</button>								
+                                    </div>
+                                    <li class="full-width divider-menu-h"></li>
+                                </div>
+                            </div>
+                            <div class="mdl-list" v-show="nombre != ''">
+                                <div v-for="(categoria, index) in searchCategorias" :key="index">
+                                    <div class="mdl-list__item mdl-list__item--two-line">
+                                        <span class="mdl-list__item-primary-content">
+                                            <i class="zmdi zmdi-label mdl-list__item-avatar"></i>
+                                            <span>1.{{categoria.tipo}}</span>
+                                            <span class="mdl-list__item-sub-title">{{categoria.descripcion}}</span>
+                                        </span>
+                                        <button class="btn btn-warning btn-sm" @click="formEdit(categoria)">Editar</button>
+                                        <button class="btn btn-danger btn-sm" @click="eliminar(categoria)">Eliminar</button>								
+                                    </div>
+                                    <li class="full-width divider-menu-h"></li>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mdl-grid" v-show="modoEditar">
                 <div class="mdl-cell mdl-cell--12-col">
                     <div class="full-width panel mdl-shadow--2dp">
                         <div class="full-width panel-tittle bg-primary text-center tittles">
@@ -84,44 +134,6 @@
                 </div>
             </div>
         </div>
-        <div class="mdl-tabs__panel divCategoria" id="tabListCategory">
-            <div class="mdl-grid">
-                <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop mdl-cell--2-offset-desktop">
-                    <div class="full-width panel mdl-shadow--2dp">
-                        <div class="full-width panel-tittle bg-success text-center tittles">
-                            Lista Categorias
-                        </div>
-                        <div class="full-width panel-content">
-                            <form action="#">
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-                                    <label class="mdl-button mdl-js-button mdl-button--icon" for="searchCategory">
-                                        <i class="zmdi zmdi-search"></i>
-                                    </label>
-                                    <div class="mdl-textfield__expandable-holder">
-                                        <input class="mdl-textfield__input" type="text" id="searchCategory">
-                                        <label class="mdl-textfield__label"></label>
-                                    </div>
-                                </div>
-                            </form>
-                            <div class="mdl-list">
-                                <div v-for="(categoria, index) in categorias" :key="index">
-                                    <div class="mdl-list__item mdl-list__item--two-line">
-                                        <span class="mdl-list__item-primary-content">
-                                            <i class="zmdi zmdi-label mdl-list__item-avatar"></i>
-                                            <span>1.{{categoria.tipo}}</span>
-                                            <span class="mdl-list__item-sub-title">{{categoria.descripcion}}</span>
-                                        </span>
-                                        <button class="btn btn-warning btn-sm" @click="formEdit(categoria)">Editar</button>
-                                        <button class="btn btn-danger btn-sm" @click="eliminar(categoria)">Eliminar</button>								
-                                    </div>
-                                    <li class="full-width divider-menu-h"></li>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </template>
 <script>
@@ -129,11 +141,18 @@
         props:['categorias'],
         data: function(){
             return{
+                modoEditar: false,
+                nombre: '',
                 categoria:{
                     id: "",
                     tipo: '',
                     descripcion: ''
                 }
+            }
+        },
+        computed:{
+            searchCategorias: function () {
+                return this.categorias.filter((item) => item.tipo.toLowerCase().includes(this.nombre.toLowerCase()));
             }
         },
         methods:{
@@ -151,12 +170,10 @@
                 axios.post('/admin/categorias', params)
                 .then(res =>{
                     alert('Categoria Cargada');
+                    this.getCategorias();
                 });
             },
             editar(){
-                let divAgregar= document.querySelector(".divAgregar");
-                let divEditar= document.querySelector(".divEditar");
-                let divCategoria= document.querySelector(".divCategoria");
                 const params= {
                     tipo: this.categoria.tipo,
                     descripcion: this.categoria.descripcion
@@ -168,23 +185,18 @@
                     this.categoria.tipo= '';
                     this.categoria.descripcion= '';
                 });
-
-                divCategoria.classList.toggle("is-active");
-                divEditar.classList.toggle("is-active"); 
+                this.getCategorias();
+                this.modoEditar= false; 
             },
             eliminar(categoria){
                 axios.delete(`/admin/categorias/${categoria.id}`)
                 .then(()=>{
-                    this.$emit('getCategorias');
+                    this.getCategorias();
                 });
             },
             formEdit(categoria){
-                let divAgregar= document.querySelector(".divAgregar");
-                let divEditar= document.querySelector(".divEditar");
-                let divCategoria= document.querySelector(".divCategoria");
+                this.modoEditar= true;
 
-                divCategoria.classList.toggle("is-active"); 
-                divEditar.classList.toggle("is-active");
                 this.categoria.id= categoria.id;
                 this.categoria.tipo= categoria.tipo;
                 this.categoria.descripcion= categoria.descripcion;   

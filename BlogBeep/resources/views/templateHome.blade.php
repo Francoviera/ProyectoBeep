@@ -33,7 +33,6 @@
     <title>Beep</title>
   </head>
   <body>
-    <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
     </div> 
@@ -42,7 +41,6 @@
             <div class="row">
                 <div class="col-lg-2 col-md-2">
                     <div class="header__logo logo">
-                        {{-- <a href="./index.html"><img src="{{ asset('img/logo.png') }}" alt=""></a> --}}
                         <span>Beep</span>
                     </div>
                 </div>
@@ -56,7 +54,7 @@
                                 <li><a href="{{route('reparaciones')}}">Reparaciones</a>
                                     @if (Auth::check())
                                         <ul class="dropdown">
-                                            <li><a href="">Estado Reparaciones</a></li>
+                                            <li><a href="{{route('misreparaciones')}}">Mis Reparaciones</a></li>
                                         </ul>
                                     @endif
                                 </li>
@@ -99,7 +97,7 @@
     <div id= "app" >
         @yield('seccion')
     </div>
-    <!-- Footer Section Begin -->
+
     <footer class="footer spad set-bg imgFooter">
         <div class="container">
             <div class="row">
@@ -109,7 +107,7 @@
                             <li>
                                 <i class="fa fa-phone"></i>
                                 <p>Telefono</p>
-                                <h6>+542314-44227</h6>
+                                <h6>+542314-535494</h6>
                             </li>
                             <li>
                                 <i class="fa fa-envelope"></i>
@@ -123,19 +121,16 @@
                     <div class="footer__social">
                         <h2>Beep</h2>
                         <div class="footer__social__links">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            {{-- <a href="#"><i class="fa fa-dribbble"></i></a> --}}
+                            <a href="https://www.facebook.com/Beep-Informatica-321390271829067/" target="_blank"><i class="fa fa-facebook"></i></a>
+                            <a href="https://www.instagram.com/beepinformaticaurdampilleta/?hl=es" target="_blank"><i class="fa fa-instagram"></i></a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 offset-lg-1 col-md-6">
                     <div class="footer__newslatter">
-                        <h4>Contactame</h4>
                         <form action="#">
-                            <input type="text" placeholder="Email">
-                            <button type="submit"><i class="fa fa-send-o"></i></button>
+                            <input type="text" placeholder="Contactame" disabled>
+                            <a href="{{route('contacto')}}"><button type="button"><i class="fa fa-send-o"></i></button></a>
                         </form>
                     </div>
                 </div>

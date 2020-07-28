@@ -19,6 +19,15 @@
                 @enderror
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input form-control @error('telefono') is-invalid @enderror" type="phone" name="telefono" id="userName" required autocomplete="name" autofocus>
+                <label class="mdl-textfield__label" for="userName">telefono</label>
+                @error('telefono')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input form-control @error('email') is-invalid @enderror" type="email" name="email" id="pass" value="{{ old('email') }}" required autocomplete="email">
                 <label class="mdl-textfield__label" for="pass">E-mail</label>
                 @error('email')

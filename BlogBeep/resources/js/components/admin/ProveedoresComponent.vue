@@ -51,8 +51,60 @@
                 </div>
             </div>
         </div>
-        <div class="mdl-tabs__panel divEditar" id="tabNewProvider">
-            <div class="mdl-grid">
+        <div class="mdl-tabs__panel divProveedores" id="tabListProvider">
+            <div class="mdl-grid" v-show="!modoEditar">
+                <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop mdl-cell--2-offset-desktop">
+                    <div class="full-width panel mdl-shadow--2dp">
+                        <div class="full-width panel-tittle bg-success text-center tittles">
+                            Lista Proveedores
+                        </div>
+                        <div class="full-width panel-content">
+                            <form action="#">
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+                                    <label class="mdl-button mdl-js-button mdl-button--icon" for="searchProvider">
+                                        <i class="zmdi zmdi-search"></i>
+                                    </label>
+                                    <div class="mdl-textfield__expandable-holder">
+                                        <input class="mdl-textfield__input" type="text" placeholder="Nombre" id="searchProvider" v-model="nombre">
+                                        <label class="mdl-textfield__label"></label>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="mdl-list" v-show="nombre === ''">
+                                <div v-for="(proveedor, index) in proveedores" :key="index">
+                                    <div class="mdl-list__item mdl-list__item--two-line">
+                                        <span class="mdl-list__item-primary-content">
+                                            <i class="zmdi zmdi-truck mdl-list__item-avatar"></i>
+                                            <span>{{proveedor.name}}</span>
+                                            <span class="mdl-list__item-sub-title">{{proveedor.telefono}}</span>
+                                            <span class="mdl-list__item-sub-title">{{proveedor.email}}</span>
+                                        </span>
+                                        <button class="btn btn-warning btn-sm" @click="formEdit(proveedor)">Editar</button>
+                                        <button class="btn btn-danger btn-sm" @click="eliminar(proveedor)">Eliminar</button>
+                                    </div>
+                                    <li class="full-width divider-menu-h"></li>
+                                </div>
+                            </div>
+                            <div class="mdl-list" v-show="nombre != ''">
+                                <div v-for="(proveedor, index) in searchProveedores" :key="index">
+                                    <div class="mdl-list__item mdl-list__item--two-line">
+                                        <span class="mdl-list__item-primary-content">
+                                            <i class="zmdi zmdi-truck mdl-list__item-avatar"></i>
+                                            <span>{{proveedor.name}}</span>
+                                            <span class="mdl-list__item-sub-title">{{proveedor.telefono}}</span>
+                                            <span class="mdl-list__item-sub-title">{{proveedor.email}}</span>
+                                        </span>
+                                        <button class="btn btn-warning btn-sm" @click="formEdit(proveedor)">Editar</button>
+                                        <button class="btn btn-danger btn-sm" @click="eliminar(proveedor)">Eliminar</button>
+                                    </div>
+                                    <li class="full-width divider-menu-h"></li>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mdl-grid" v-show="modoEditar">
                 <div class="mdl-cell mdl-cell--12-col">
                     <div class="full-width panel mdl-shadow--2dp">
                         <div class="full-width panel-tittle bg-primary text-center tittles">
@@ -98,45 +150,6 @@
                 </div>
             </div>
         </div>
-        <div class="mdl-tabs__panel divProveedores" id="tabListProvider">
-            <div class="mdl-grid">
-                <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop mdl-cell--2-offset-desktop">
-                    <div class="full-width panel mdl-shadow--2dp">
-                        <div class="full-width panel-tittle bg-success text-center tittles">
-                            Lista Proveedores
-                        </div>
-                        <div class="full-width panel-content">
-                            <form action="#">
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-                                    <label class="mdl-button mdl-js-button mdl-button--icon" for="searchProvider">
-                                        <i class="zmdi zmdi-search"></i>
-                                    </label>
-                                    <div class="mdl-textfield__expandable-holder">
-                                        <input class="mdl-textfield__input" type="text" id="searchProvider">
-                                        <label class="mdl-textfield__label"></label>
-                                    </div>
-                                </div>
-                            </form>
-                            <div class="mdl-list">
-                                <div v-for="(proveedor, index) in proveedores" :key="index">
-                                    <div class="mdl-list__item mdl-list__item--two-line">
-                                        <span class="mdl-list__item-primary-content">
-                                            <i class="zmdi zmdi-truck mdl-list__item-avatar"></i>
-                                            <span>{{proveedor.name}}</span>
-                                            <span class="mdl-list__item-sub-title">{{proveedor.telefono}}</span>
-                                            <span class="mdl-list__item-sub-title">{{proveedor.email}}</span>
-                                        </span>
-                                        <button class="btn btn-warning btn-sm" @click="formEdit(proveedor)">Editar</button>
-                                        <button class="btn btn-danger btn-sm" @click="eliminar(proveedor)">Eliminar</button>
-                                    </div>
-                                    <li class="full-width divider-menu-h"></li>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>   
 </template>
 <script>
@@ -144,7 +157,9 @@
         props:['proveedores'],
         data: function(){
             return{
-               proveedor:{
+                modoEditar: false,
+                nombre: '',
+                proveedor:{
                     id: '',
                     name: '',
                     email: '',
@@ -152,7 +167,10 @@
                 }
             }
         },
-        created(){
+        computed:{
+            searchProveedores: function () {
+                return this.proveedores.filter((item) => item.name.toLowerCase().includes(this.nombre.toLowerCase()));
+            }
         },
         methods:{
             getProveedores(){
@@ -168,19 +186,31 @@
                 this.proveedor.telefono= ' ';
                 this.proveedor.email= ' ';
 
-
                 axios.post('/admin/proveedores', params)
                 .then(res =>{
                     alert('Proveedor Cargado');
                     this.getProveedores();
                 });
             },
-            formEdit(proveedor){
-                let divEditar= document.querySelector(".divEditar");
-                let divProveedores= document.querySelector(".divProveedores");
+            editar(){
+                const params= {
+                    name: this.proveedor.name,
+                    telefono: this.proveedor.telefono,
+                    email: this.proveedor.email,
+                }
+                this.proveedor.name= ' ';
+                this.proveedor.telefono= ' ';
+                this.proveedor.email= ' ';
 
-                divProveedores.classList.toggle("is-active");
-                divEditar.classList.toggle("is-active"); 
+                axios.put(`/admin/proveedores/${this.proveedor.id}`, params)
+                .then(res =>{
+                    alert('Proveedor Editado');
+                    this.getProveedores();
+                    this.modoEditar= false;
+                });
+            },
+            formEdit(proveedor){
+                this.modoEditar= true;
                 
                 this.proveedor.id= proveedor.id;
                 this.proveedor.name= proveedor.name;

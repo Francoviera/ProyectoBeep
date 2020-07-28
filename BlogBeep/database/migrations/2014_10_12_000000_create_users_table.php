@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->boolean('confirmed')->default(0);
             $table->string('confirmation_code')->nullable();
             $table->enum('type', ['user', 'admin'])->default('user');
-            $table->integer('telefono')->default(0);
+            $table->double('telefono')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

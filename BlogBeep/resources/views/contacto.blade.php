@@ -57,23 +57,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-8">
-                    <div class="contact__form">
-                        <div class="section-title">
-                            <h2>Agregar Consulta</h2>
-                        </div>
-                        <p>Estaremos en contacto lo antes posible con vos para poder responder a tu consulta</p>
-                        <form action="#">
-                            <div class="input__list">
-                                <input type="text" placeholder="Nombre">
-                                <input type="text" placeholder="Email">
-                                <input type="text" placeholder="Telefono">
-                            </div>
-                            <textarea placeholder="Consulta"></textarea>
-                            <button type="submit" class="site-btn">Enviar Mensaje</button>
-                        </form>
-                    </div>
-                </div>
+                <contacto-user />
             </div>
         </div>
     </section>

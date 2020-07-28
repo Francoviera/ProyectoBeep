@@ -4,9 +4,13 @@
 }
 .imgHeader{
     background-image: url('../../img/images.jpg');
-    /* background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover; */
     width: auto;
     height: auto;
+}
+.imgProductos{
+    height: 600px;
+}
+.logoBeep{
+    height: 600px;
+    width: 100%;
 }

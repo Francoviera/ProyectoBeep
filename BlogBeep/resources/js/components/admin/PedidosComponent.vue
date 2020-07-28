@@ -18,7 +18,6 @@
                             <td>{{pedido.nombre}}</td>
                             <td>{{pedido.cantidad}}</td>
                             <td>
-                                <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-cart-plus"></i></button>
                                 <button class="btn btn-sm" @click="eliminar(pedido.id)"><i class="fas fa-trash-alt"></i></button>
                             </td>
                             <td></td>
@@ -26,30 +25,6 @@
                     </tbody>
                 </table>
 			</div>
-           <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Agregar Pedido</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Cantidades del Producto</label>
-                            <input type="number" class="form-control" id="recipient-name" v-model="pedido.cantidad">
-                        </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary"  >Agregar</button>
-                    </div>
-                    </div>
-                </div>
-            </div>
             <form>
                 <div class="mdl-cell mdl-cell--12-col">
                     <div class="mdl-textfield mdl-js-textfield">
@@ -79,6 +54,11 @@
                     cantidad: 0,
                     id_proveedor: 0,
                     nombre: "",
+                },
+                pedidoEdit: {
+                    nombre: "",
+                    cantidad: "",
+                    id_proveedor: "",
                 }
                 
             }

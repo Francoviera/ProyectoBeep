@@ -177,18 +177,18 @@
                                 <i class="zmdi zmdi-search"></i>
                             </label>
                             <div class="mdl-textfield__expandable-holder">
-                                <input class="mdl-textfield__input" type="text" id="searchProduct">
+                                <input class="mdl-textfield__input" type="text" placeholder="Nombre" id="searchProduct" v-model="nombre">
                                 <label class="mdl-textfield__label"></label>
                             </div>
                         </div>
                     </form>
-                    <nav class="full-width menu-categories">
+                    <nav class="full-width menu-categories" v-show="nombre === ''">
                         <ul class="list-unstyle text-center">
                             <li v-for="(categoria, index) in categorias" :key="index"><a href="#!" @click="getCategoria(categoria.id)">{{categoria.tipo}}</a></li>
                             
                         </ul>
                     </nav>
-                    <div class="full-width text-center" style="padding: 30px 0;">
+                    <div class="full-width text-center" style="padding: 30px 0;" v-show="nombre === ''">
                         <div class="mdl-card mdl-shadow--2dp full-width product-card" v-for="(producto, index) in productos" :key="index">
                             <div class="mdl-card__title">
                                 <!-- <img v-bind:src="'public/storage/app/'+producto.img"> -->
@@ -196,8 +196,27 @@
                                 <!-- <img :src="require('/storage/app'+producto.img)" /> -->
                             </div>
                             <div class="mdl-card__supporting-text">
-                                <small>Cantidad:</small><small v-if="producto.cantidad <= 5" class="text-danger">{{producto.cantidad}}</small><small v-else class="text-success">{{producto.cantidad}}</small><br>
-                                <small>Precio:</small><small>{{producto.precio}}</small>
+                                <span>Cantidad: </span><span v-if="producto.cantidad <= 5" class="text-danger">{{producto.cantidad}}</span><span v-else class="text-success">{{producto.cantidad}}</span><br>
+                                <span>Precio: </span><span>{{producto.precio}}</span>
+                            </div>
+                            <div class="mdl-card__actions mdl-card--border">
+                                {{producto.nombre}}
+                                <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#exampleModal" @click="guardarPedido(producto)"><i class="fas fa-cart-plus"></i></button>
+                                <button class="btn btn-sm" @click="formEdit(producto)"><i class="far fa-edit"></i></button>
+                                <button class="btn btn-sm" @click="eliminar(producto, index)"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+                        </div>   
+                    </div>
+                    <div class="full-width text-center" style="padding: 30px 0;" v-show="nombre != ''">
+                        <div class="mdl-card mdl-shadow--2dp full-width product-card" v-for="(producto, index) in searchProducts" :key="index">
+                            <div class="mdl-card__title">
+                                <!-- <img v-bind:src="'public/storage/app/'+producto.img"> -->
+                                <img width="200" height="180" :src="'/imgProductos/'+producto.img">
+                                <!-- <img :src="require('/storage/app'+producto.img)" /> -->
+                            </div>
+                            <div class="mdl-card__supporting-text">
+                                <span>Cantidad: </span><span v-if="producto.cantidad <= 5" class="text-danger">{{producto.cantidad}}</span><span v-else class="text-success">{{producto.cantidad}}</span><br>
+                                <span>Precio: </span><span>{{producto.precio}}</span>
                             </div>
                             <div class="mdl-card__actions mdl-card--border">
                                 {{producto.nombre}}
@@ -241,9 +260,10 @@
         props:['user', 'productos', 'categorias', 'proveedores'],
         data: function(){
             return{
-               modoEditar:false, 
-               imagenMiniatura: " ",
-               producto:{
+                modoEditar:false, 
+                imagenMiniatura: '',
+                nombre: '',
+                producto:{
                     id: '',
                     nombre: '',
                     precio: '',
@@ -260,12 +280,12 @@
                 }
             }
         },
-        created(){
-
-        },
         computed:{
             imagen(){
                 return this.imagenMiniatura;
+            },
+            searchProducts: function () {
+                return this.productos.filter((item) => item.nombre.toLowerCase().includes(this.nombre.toLowerCase()));
             }
         },
         methods:{
@@ -329,7 +349,7 @@
                     this.producto.cantidad= ' ';
                     this.producto.id_categoria= ' ';
                     this.producto.id_proveedor= ' ';
-                    this.producto.imagenMiniatura= ''; 
+                    this.imagenMiniatura= ''; 
                 });
             },
             guardarPedido(producto){
@@ -358,13 +378,12 @@
                 })
                 .then(res=>{
                     alert('Producto Cargado');
-
                     this.producto.nombre= '';
                     this.producto.precio= '';
                     this.producto.cantidad= '';
                     this.producto.id_categoria= '';
                     this.producto.id_proveedor= '';    
-                    this.producto.imagenMiniatura= ''; 
+                    this.imagenMiniatura= ''; 
                 });
                 this.$emit('getProductos',);
                 divProductos.classList.toggle("is-active");

@@ -22,7 +22,7 @@ class CreateReparacionsTable extends Migration
             $table->String('marca');
             $table->String('modelo');
             $table->String('daño');
-            $table->enum('estado', ['en curso', 'terminada', 'en espera de respuesto'])->default('en curso');
+            $table->enum('estado', ['en curso', 'terminada', 'en espera de respuesto', 'en espera de aprobacion'])->default('en curso');
             $table->String('rtaTecnico');
             $table->String('rtaUsuario');
             $table->timestamps();
