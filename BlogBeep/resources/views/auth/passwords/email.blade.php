@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.app', [
+    'title' => 'Verifica tu Cuenta',
+])
 
 @section('content')
 <div class="login-wrap cover">

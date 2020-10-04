@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+// Route::get('/', 'PageController@welcome')->middleware('verified')->name('welcome');
 Route::get('/', 'PageController@welcome')->name('welcome');
 Route::get('/productos', 'PageController@productos')->name('productos');
 Route::get('/contacto', 'PageController@contacto')->name('contacto');
@@ -18,7 +19,7 @@ Route::resource('/admin/pedidos', 'PedidosController')->middleware('admin');
 
 Route::resource('/admin/reparaciones', 'ReparacionesController')->middleware('admin');
 Route::post('/admin/reparaciones/responder', 'ReparacionesController@responder')->middleware('admin');
-Route::get('/misreparaciones/{id?}', 'ReparacionesController@misReparaciones')->middleware('auth');;
+Route::get('/misreparaciones/{id?}', 'ReparacionesController@misReparaciones')->middleware('auth', 'verified');;
 
 Route::delete('/admin/pedido/{id?}', 'PedidosController@eliminar')->middleware('admin');
 Route::get('/admin', 'HomeController@admin')->middleware('admin');

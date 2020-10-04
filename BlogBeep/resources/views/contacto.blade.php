@@ -1,5 +1,7 @@
-@extends('template')
-
+@extends('template', [
+    'title' => 'Contacto',
+    'metaDescription' => 'Ubicacion y todos los medios de contacto de Beep Informatica'
+])
 @section('seccion')
 <!-- Breadcrumb Begin -->
     <div class="breadcrumb-option">

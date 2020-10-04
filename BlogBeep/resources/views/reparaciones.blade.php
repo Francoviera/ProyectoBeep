@@ -1,4 +1,7 @@
-@extends('template')
+@extends('template', [
+    'title' => 'Reparaciones',
+    'metaDescription' => 'Todas las reparaciones realizadas por Beep Informatica'
+])
 
 @section('seccion')
      <!-- Breadcrumb Begin -->

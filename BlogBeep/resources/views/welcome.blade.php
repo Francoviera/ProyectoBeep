@@ -1,5 +1,7 @@
-@extends('templateHome')
-
+@extends('templateHome', [
+    'title' => 'Home',
+    'metaDescription' => 'Pagina principal de Beep Informatica'
+])
 @section('seccion')
     
     <!-- Hero Section Begin -->

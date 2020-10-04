@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.app', [
+    'title' => 'Iniciar Sesion',
+])
 
 @section('content')
 <div class="login-wrap cover">
@@ -6,7 +8,7 @@
         <p class="text-center" style="font-size: 80px;">
             <i class="zmdi zmdi-account-circle"></i>
         </p>
-        <h5 class="text-center text-condensedLight card-title">BIENVENIDO :)</h5>
+        <h5 class="text-center text-condensedLight card-title">BIENVENIDO</h5>
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">

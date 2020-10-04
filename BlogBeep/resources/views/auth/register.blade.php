@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.app', [
+    'title' => 'Crear mi Cuenta',
+])
 
 @section('content')
 <div class="login-wrap cover">

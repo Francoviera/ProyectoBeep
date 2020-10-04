@@ -3,6 +3,7 @@
         <div class="contact__form">
             <div class="section-title">
                 <h2>Mandar Consulta</h2>
+
             </div>
             <p>Estaremos en contacto lo antes posible con vos para poder responder a tu consulta</p>
             <form @submit.prevent="enviarMensaje(reparacion)">
@@ -27,6 +28,12 @@
                 mensaje: '',
                 consulta: '',
             }
+        },
+        mounted(){
+            axios.get(`http://192.168.0.30`)
+            .then(response=>{
+                console.log(response);
+            });
         },
     }
 </script>
