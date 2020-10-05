@@ -1,6 +1,5 @@
 .imgFooter{
     background-image: url('../../img/footer-bg.png');
-
 }
 .imgHeader{
     background-image: url('../../img/images.jpg');
@@ -13,4 +12,13 @@
 .logoBeep{
     height: 600px;
     width: 100%;
+}
+.slicknav_menu{
+    margin-bottom: 20px;
+}
+.slicknav_btn{
+    margin-bottom: 20px;
+}
+.is-active{
+    display: none;
 }

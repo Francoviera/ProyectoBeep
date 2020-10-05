@@ -8,7 +8,7 @@
         <p class="text-center" style="font-size: 80px;">
             <i class="zmdi zmdi-account-circle"></i>
         </p>
-        <p class="text-center text-condensedLight">'Resetear Contraseña'</p>
+        <h5 class="text-center text-condensedLight">Resetear Contraseña</h5>
         @if (session('status'))
             <div class="alert alert-success" role="alert">
                 {{ session('status') }}

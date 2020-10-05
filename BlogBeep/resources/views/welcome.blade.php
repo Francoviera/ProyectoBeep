@@ -87,11 +87,11 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="about__pic">
-                        <img width="100%" heigth="100%" src="{{ asset('img/miguel.jpg') }}" alt="">
+                        <img width="100%" heigth="100%" src="{{ asset('img/logoPhone.png') }}" alt="Logo de celulares">
                     </div>
                     <div class="about__text">
                         <div class="section-title">
-                            <h2>Miguel Coscararte</h2>
+                            <h2>Servicio en Celulares</h2>
                             <h1>Acerca de Mi</h1>
                         </div>
                         <p>Tecnico en informatica, me dedico a reparar celulares con mas de 10 años de experiencia</p>
@@ -100,11 +100,11 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="about__pic">
-                        <img width="100%" heigth="100%" src="{{ asset('img/miguel.jpg') }}" alt="">
+                        <img width="100%" heigth="80%" src="{{ asset('img/logoPC.png') }}" alt="Logo de Computadora">
                     </div>
                     <div class="about__text">
                         <div class="section-title">
-                            <h2>Miguel Laurence</h2>
+                            <h2>Servicio en Computadoras</h2>
                             <h1>Acerca de Mi</h1>
                         </div>
                         <p>Tecnico en Reparacion de computadoras, me dedico a reparar computadoras con mas de 17 años de experiencia</p>

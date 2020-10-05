@@ -1,4 +1,6 @@
-@extends('template')
+@extends('template', [
+    'title' => 'Mis Reparaciones',
+])
 
 @section('seccion')
     <!-- Breadcrumb Begin -->
@@ -7,7 +9,9 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb__links">
-                        <a href="#"><i class="fa fa-home"></i> Home</a>
+                        <a href="{{route('welcome')}}">
+                            <i class="fa fa-home"></i> Home
+                        </a>
                         <span>Mis Reparaciones</span>
                     </div>
                 </div>

@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.app', [
+    'title' => 'Home',
+])
 
 @section('content')
 <div class="login-wrap cover">
@@ -18,7 +20,7 @@
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect" style="color: #3F51B5; margin: 0 auto; display: block;">
-                        {{ __('Logout') }}
+                        {{ __('Cerrar Sesion') }}
                     </button>
                 </div>
             </div>

@@ -5,7 +5,7 @@
                 <div class="col-lg-12">
                     <div class="section-title center-title">
                         <h2>Productos</h2>
-                        <h1>Productos</h1>
+                        <title>Productos</title>
                     </div>
                 </div>
             </div>

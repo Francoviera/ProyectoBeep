@@ -1,5 +1,5 @@
 @extends('layouts.app', [
-    'title' => 'Crear mi Cuenta',
+    'title' => 'Registra tu Cuenta',
 ])
 
 @section('content')
@@ -8,7 +8,7 @@
         <p class="text-center" style="font-size: 80px;">
             <i class="zmdi zmdi-account-circle"></i>
         </p>
-        <h4 class="text-center text-condensedLight">Crear Usuario</h4>
+        <h4 class="text-center text-condensedLight">Registra tu Usuario</h4>
         <form method="POST" action="{{ route('register') }}">
             @csrf
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -21,7 +21,7 @@
                 @enderror
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input form-control @error('telefono') is-invalid @enderror" type="phone" name="telefono" id="userName" required autocomplete="name" autofocus>
+                <input class="mdl-textfield__input form-control @error('telefono') is-invalid @enderror" type="number" name="telefono" id="userName" required autocomplete="name" autofocus>
                 <label class="mdl-textfield__label" for="userName">telefono</label>
                 @error('telefono')
                     <span class="invalid-feedback" role="alert">

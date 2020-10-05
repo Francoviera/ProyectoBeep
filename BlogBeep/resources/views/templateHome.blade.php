@@ -24,6 +24,7 @@
     <script src="{{ asset('js/user/jquery.countdown.min.js') }}"></script>
     <script src="{{ asset('js/user/jquery.slicknav.js') }}"></script>
     <script src="{{ asset('js/user/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('js/user/navBar.js') }}"></script>
     <script src="{{ asset('js/user/main.js') }}"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -72,7 +73,7 @@
                                     @endif
                                     @else 
                                         <li>
-                                            <a href="#"><i class="far fa-user"></i><span> </span><span >{{ Auth::user()->name }}</span></a>
+                                            <a><i class="far fa-user"></i><span> </span><span >{{ Auth::user()->name }}</span></a>
                                         </li>
                                         <li>
                                             <a href="{{ route('logout') }}"
@@ -80,7 +81,7 @@
                                                             document.getElementById('logout-form').submit();">
                                                 <i class="fas fa-power-off"></i>
                                                 <ul class="dropdown">
-                                                    <li><span> Salir </span></li>
+                                                    <li><span> Cerrar Sesion </span></li>
                                                 </ul>
                                             </a>
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -90,17 +91,60 @@
                                 @endguest 
                             </ul>
                         </nav>
-                        <div class="header__right__social"></div>
                     </div>
                 </div>
             </div>
-            <div id="mobile-menu-wrap"></div>
+            <div id="mobile-menu-wrap">
+                <div class="slicknav_menu">
+                    <a aria-haspopup="true" role="button" tabindex="0" class="slicknav_btn slicknav_open" style="">
+                        <span class="slicknav_menutxt">MENU</span><span class="slicknav_icon"><span class="slicknav_icon-bar"></span>
+                        <span class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span></span>
+                    </a>
+                    <nav class="slicknav_nav is-active" aria-hidden="false" role="menu" style="">
+                        <ul>
+                            <li class="active"><a href="{{route('welcome')}}">Home</a></li>
+                            <li><a href="{{route('productos')}}">Productos</a></li>
+                            <li><a href="{{route('contacto')}}">Contacto </a></li>
+                            <li><a href="{{route('reparaciones')}}">Reparaciones</a>
+                                @if (Auth::check())
+                                    <ul class="dropdown">
+                                        <li><a href="{{route('misreparaciones')}}">Mis Reparaciones</a></li>
+                                    </ul>
+                                @endif
+                            </li>
+                                @guest
+                                <li>
+                                    <a  href="{{ route('login') }}">{{ __('Login') }}</a>
+                                </li>
+                                @if (Route::has('register'))
+                                    <li>
+                                        <a  href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    </li>
+                                @endif
+                                @else 
+                                    <li>
+                                        <a><i class="far fa-user"></i><span> </span><span >{{ Auth::user()->name }}</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">
+                                            <i class="fas fa-power-off"></i><span> Cerrar Sesion </span>
+                                        </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
+                                    </li>
+                            @endguest 
+                        </ul>
+                    </nav>
+                </div>
+            </div>
         </div>
     </header>
     <div id= "app" >
         @yield('seccion')
     </div>
-
     <footer class="footer spad set-bg imgFooter">
         <div class="container">
             <div class="row">
@@ -131,7 +175,7 @@
                 </div>
                 <div class="col-lg-3 offset-lg-1 col-md-6">
                     <div class="footer__newslatter">
-                        <form action="#">
+                        <form>
                             <input type="text" placeholder="Contactame" disabled>
                             <a href="{{route('contacto')}}"><button type="button"><i class="fa fa-send-o"></i></button></a>
                         </form>
@@ -139,7 +183,7 @@
                 </div>
             </div>
 			<div class="footer__copyright__text">
-				<p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This page is made <i class="fa fa-heart" aria-hidden="true"></i> by <a href="" target="_blank">Franco Viera</a></p>
+				<p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> Todos los derechos reservados | Esta pagina fue realizada <i class="fa fa-fire" aria-hidden="true"></i> por <a href="https://www.facebook.com/franco.viera.125" target="_blank">Franco Viera</a></p>
 			</div>
         </div>
     </footer>

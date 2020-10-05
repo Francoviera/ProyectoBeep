@@ -5,8 +5,8 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="section-title center-title">
-                            <h2>Reparaciones</h2>
-                            <h1>Imagenes de Muestra</h1>
+                            <title>Reparaciones</title>
+                            <h2>Imagenes de Muestra</h2>
                         </div>
                     </div>
                 </div>
