@@ -22,3 +22,28 @@
 .is-active{
     display: none;
 }
+.btnCarousel{
+    font-size: 50px;
+    color:black;
+}
+.btnCarousel:hover {
+    color: rgb(80, 0, 230);
+}
+.btnHome:hover{
+    background-color: rgba(133, 41, 219, 0.308);
+    border-radius: 12px;
+}
+.titleYT{
+    text-decoration:none;
+    color: white;
+}
+.titleYT:hover{
+    text-decoration:none;
+    color: black;
+}
+.phones:hover{
+    color: black;
+}
+.titleHome:hover{
+    color: blue;
+}

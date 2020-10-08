@@ -4,22 +4,7 @@
 ])
 
 @section('seccion')
-     <!-- Breadcrumb Begin -->
-    <div class="breadcrumb-option">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="breadcrumb__links">
-                        <a href="{{route('welcome')}}">
-                            <i class="fa fa-home"></i> Home
-                        </a>
-                        <span>Reparaciones</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Breadcrumb End -->
+
     <section class="about about--page spad">
         <reparaciones-user />
     </section>
@@ -32,7 +17,7 @@
                     <div class="skills__content">
                         <div class="section-title">
                             <h2> <a href="https://www.youtube.com/channel/UCXk9Voo5cAfoYbnXjrNZhVw" class="play-btn video-popup" target="_blank"><i class="fab fa-youtube"></i></a></h2>
-                            <h1>Canal de Youtube</h1>
+                            <h1><a href="https://www.youtube.com/channel/UCXk9Voo5cAfoYbnXjrNZhVw" class="titleYT" target="_blank"> Canal de Youtube</a></h1>
                         </div>
                         {{-- <p>Este es nuestro canal donde subimos todos nuestros trabajos grabados para que lo puedas ver</p> --}}
                         
@@ -57,12 +42,14 @@
                             </div>
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Anterior</span>
+                            {{-- <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Anterior</span> --}}
+                            <i class="fas fa-angle-left btnCarousel" aria-hidden="true"></i>
                         </a>
                         <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Siguiente</span>
+                            {{-- <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Siguiente</span> --}}
+                            <i class="fas fa-angle-right btnCarousel" aria-hidden="true"></i>
                         </a>
                     </div>
                 </div>

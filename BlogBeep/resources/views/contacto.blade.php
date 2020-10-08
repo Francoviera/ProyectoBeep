@@ -3,22 +3,6 @@
     'metaDescription' => 'Ubicacion y todos los medios de contacto de Beep Informatica'
 ])
 @section('seccion')
-<!-- Breadcrumb Begin -->
-    <div class="breadcrumb-option">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="breadcrumb__links">
-                        <a href="{{route('welcome')}}">
-                            <i class="fa fa-home"></i> Home
-                        </a>
-                        <span>Contacto</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Breadcrumb End -->
 
     <!-- Map Begin -->
     <div class="map">
@@ -50,8 +34,8 @@
                             <li>
                                 <i class="fa fa-phone"></i>
                                 <h5>Telefonos</h5>
-                                <span><a href="tel:+542314-535494">+542314-535494</a></span>
-                                <span><a href="tel:+542314-557289">+542314-557289</a></span>
+                                <span><a href="tel:+542314-535494" class="phones">+542314-535494</a></span>
+                                <span><a href="tel:+542314-557289" class="phones">+542314-557289</a></span>
                             </li>
                             <li>
                                 <i class="fa fa-envelope"></i>

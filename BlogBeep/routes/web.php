@@ -9,6 +9,7 @@ Route::get('/contacto', 'PageController@contacto')->name('contacto');
 Route::get('/reparaciones', 'PageController@reparaciones')->name('reparaciones');
 Route::get('/inventario', 'ProductosController@paginate');
 Route::get('/misreparaciones', 'PageController@reparacion')->name('misreparaciones');
+Route::get('/allProductos', 'ProductosController@allProductos');
 
 Route::resource('/admin/productos', 'ProductosController')->middleware('admin');
 Route::resource('/admin/categorias', 'CategoriasController')->middleware('admin');

@@ -114,9 +114,8 @@
                 this.pagination.to= response.data.to;
                 this.pagination.last_page= response.data.last_page;
                 this.pagination.total= response.data.total;
-                console.log(this.pagination);
                 });
-                axios.get('/admin/productos').then(response=>{
+                axios.get('/allProductos').then(response=>{
                 this.productos= response.data;
                 });
             },

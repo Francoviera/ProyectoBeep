@@ -160,6 +160,22 @@
     </header>
 
     <div id= "app" >
+        <!-- Breadcrumb Begin -->
+        <div class="breadcrumb-option">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="breadcrumb__links">
+                            <a href="{{route('welcome')}}" class="titleHome">
+                                <i class="fa fa-home"></i> Home
+                            </a>
+                            <span>{{$title}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
         @yield('seccion')
     </div>
 

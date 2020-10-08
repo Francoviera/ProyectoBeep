@@ -35,7 +35,7 @@
                 </div>
                 <div class="col-lg-3 col-md-3">
                     <div class="track__all">
-                        <a href="{{route('productos')}}" class="primary-btn border-btn">Ver Productos</a>
+                        <a href="{{route('productos')}}" class="primary-btn border-btn btnHome">Ver Productos</a>
                     </div>
                 </div>
             </div>
@@ -43,29 +43,19 @@
                 <div class="col-md-12">
                     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="img/parlanteDucha.jpg" class="d-block w-100 imgProductos" alt="Parlante ducha">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="img/auriculares2.png" class="d-block w-100 imgProductos" alt="auriculares">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="img/auriculares.png" class="d-block w-100 imgProductos" alt="auriculares">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="img/usb.jpg" class="d-block w-100 imgProductos" alt="usb">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="img/teclado.jpg" class="d-block w-100 imgProductos" alt="teclado">
-                        </div>
+                        {{$i = 0}}
+                        @foreach ( $productos as $product)
+                            <div  @if($i == 0) class="carousel-item active" @endif class="carousel-item">
+                                <img src={{ asset("imgProductos/$product->img")}} class="d-block w-100 imgProductos" alt="Imagenes de Productos">
+                            </div>
+                            {{$i++}}
+                        @endforeach
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon bg-dark" aria-hidden="true"></span>
-                        <span class="sr-only">Anterior</span>
+                        <i class="fas fa-angle-left btnCarousel" aria-hidden="true"></i>
                     </a>
-                    <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon bg-dark" aria-hidden="true"></span>
-                        <span class="sr-only">Siguiente</span>
+                    <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next" width="40px" heigth="40px">
+                        <i class="fas fa-angle-right btnCarousel" aria-hidden="true"></i>
                     </a>
                     </div>
                 </div>    
@@ -95,7 +85,7 @@
                             <h1>Acerca de Mi</h1>
                         </div>
                         <p>Tecnico en informatica, me dedico a reparar celulares con mas de 10 años de experiencia</p>
-                        <a href="{{route('contacto')}}" class="primary-btn">Contactame</a>
+                        <a href="{{route('contacto')}}" class="primary-btn border-btn btnHome">Contactame</a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -108,7 +98,7 @@
                             <h1>Acerca de Mi</h1>
                         </div>
                         <p>Tecnico en Reparacion de computadoras, me dedico a reparar computadoras con mas de 17 años de experiencia</p>
-                        <a href="{{route('contacto')}}" class="primary-btn">Contactame</a>
+                        <a href="{{route('contacto')}}" class="primary-btn border-btn btnHome">Contactame</a>
                     </div>
                 </div>
             </div>

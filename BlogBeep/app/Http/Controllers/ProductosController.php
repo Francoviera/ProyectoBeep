@@ -20,6 +20,13 @@ class ProductosController extends Controller
             return $inventario;
         }
     }
+    public function allProductos(Request $request)
+    {
+        if($request->wantsJson()){
+            $inventario= App\Producto::all();
+            return $inventario;
+        }
+    }
 
     /**
      * Show the form for creating a new resource.
